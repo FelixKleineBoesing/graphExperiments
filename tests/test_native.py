@@ -1,4 +1,4 @@
-from src.nativepy.multidigraph import MultiDiGraph
+from pygraph.nativepy.multidigraph import MultiDiGraph
 from unittest import TestCase
 from datetime import datetime
 

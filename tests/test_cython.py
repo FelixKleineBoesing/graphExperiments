@@ -1,4 +1,4 @@
-from src.cython.multidigraph import MultiDiGraph, MultiDiGraphDict
+from pygraph.cython.multidigraph import MultiDiGraph, MultiDiGraphDict
 from unittest import TestCase
 from datetime import datetime
 

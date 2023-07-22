@@ -1,0 +1,17 @@
+[package]
+name = "pygraph"
+version = "0.1.0"
+edition = "2021"
+authors = ["Felix KLeine Bösing <felix.boesing@t-online.de>"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[lib]
+name="graph"
+crate-type = ["cdylib"]
+path="pygraph/lib.rs"
+
+
+[dependencies.cpython]
+cpython = "0.7"
+default-features = false
+features = ["extension-module"]

@@ -3,6 +3,6 @@ from Cython.Build import cythonize
 
 setup(
     name='Graph',
-    ext_modules=cythonize(["src/cython/astar.pyx", "src/cython/multidigraph.pyx", "src/nativepy/multidigraph.py"]),
+    ext_modules=cythonize(["pygraph/cython/astar.pyx", "pygraph/cython/multidigraph.pyx", "pygraph/nativepy/multidigraph.py"]),
     zip_safe=False,
 )
