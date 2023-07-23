@@ -1,4 +1,4 @@
-use cpython::{PyResult, PyDict, PyTuple, PyObject, Python, py_class, py_module_initializer};
+use cpython::{PyResult, PyDict, PyTuple, PyObject,py_class, py_module_initializer};
 use std::collections::HashMap;
 use std::cell::RefCell;
 
@@ -91,6 +91,7 @@ py_class!(pub class PyMultiDiGraph |py| {
     }
 });
 
-py_module_initializer!(libmyrustlib, initmyrustlib, PyInit_myrustlib, |py, m| {
+
+py_module_initializer!(graphlib, initgraphlib, PyInit_graphlib, |py, m| {
     m.add_class::<PyMultiDiGraph>(py)
 });

@@ -6,9 +6,9 @@ authors = ["Felix KLeine Bösing <felix.boesing@t-online.de>"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [lib]
-name="graph"
+name="graphlib"
 crate-type = ["cdylib"]
-path="pygraph/lib.rs"
+path= "pygraph/rust/lib.rs"
 
 
 [dependencies.cpython]
