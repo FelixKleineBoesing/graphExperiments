@@ -11,7 +11,5 @@ crate-type = ["cdylib"]
 path= "pygraph/rust/lib.rs"
 
 
-[dependencies.cpython]
-cpython = "0.7"
-default-features = false
-features = ["extension-module"]
+[dependencies]
+pyo3 = { version = "0.19.1", features = ["extension-module"] }

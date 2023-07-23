@@ -6,7 +6,7 @@ setup(
     name='pygraph',
     version="0.1",
     packages=["pygraph"],
-    rust_extensions=[RustExtension("pygraph.rust.graphlib", "Cargo.toml", binding=Binding.RustCPython)],
+    rust_extensions=[RustExtension("pygraph.rust.graphlib", "Cargo.toml", binding=Binding.PyO3)],
     ext_modules=cythonize(["pygraph/cython/astar.pyx", "pygraph/cython/multidigraph.pyx", "pygraph/nativepy/multidigraph.py"]),
     zip_safe=False,
 )

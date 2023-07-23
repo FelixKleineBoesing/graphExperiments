@@ -1,97 +1,99 @@
-use cpython::{PyResult, PyDict, PyTuple, PyObject,py_class, py_module_initializer};
+use pyo3::prelude::*;
+use pyo3::types::{IntoPyDict, PyDict, PyObject};
 use std::collections::HashMap;
-use std::cell::RefCell;
 
-#[derive(Default)]
+#[pyclass]
 pub struct MultiDiGraph {
     node_data: HashMap<String, i32>,
     edge_data: HashMap<String, HashMap<String, HashMap<String, i32>>>,
 }
 
+#[pymethods]
 impl MultiDiGraph {
-    fn new(node_data: HashMap<String, i32>, edge_data: Vec<(String, String, String, i32)>) -> MultiDiGraph {
+    #[new]
+    fn new(obj: &PyRawObject, node_data: HashMap<String, i32>, edge_data: HashMap<(String, String, String), i32>) {
         let mut graph = MultiDiGraph {
             node_data,
             edge_data: HashMap::new(),
         };
 
-        for edge in edge_data {
-            graph.push_edge_data(edge);
+        for (edge_id, data) in edge_data {
+            graph.push_edge_data(edge_id, data);
         }
 
-        graph
+        obj.init(graph);
     }
 
-    fn push_edge_data(&mut self, edge_id: (String, String, String, i32)) {
-        let (node1, node2, edge, data) = edge_id;
+    fn push_edge_data(&mut self, edge_id: (String, String, String), data: i32) {
+        if !self.edge_data.contains_key(&edge_id.0) {
+            self.edge_data.insert(edge_id.0.clone(), HashMap::new());
+        }
 
-        if !self.edge_data.contains_key(&node1) {
-            self.edge_data.insert(node1.clone(), HashMap::new());
+        let edge_data_lvl1 = self.edge_data.get_mut(&edge_id.0).unwrap();
+
+        if !edge_data_lvl1.contains_key(&edge_id.1) {
+            edge_data_lvl1.insert(edge_id.1.clone(), HashMap::new());
         }
-        if !self.edge_data[&node1].contains_key(&node2) {
-            self.edge_data.get_mut(&node1).unwrap().insert(node2.clone(), HashMap::new());
-        }
-        self.edge_data.get_mut(&node1).unwrap().get_mut(&node2).unwrap().insert(edge, data);
+
+        let edge_data_lvl2 = edge_data_lvl1.get_mut(&edge_id.1).unwrap();
+
+        edge_data_lvl2.insert(edge_id.2, data);
     }
 
-    fn get_item(&self, node1: &str, node2: &str, edge: &str) -> Option<i32> {
-        self.edge_data.get(node1).and_then(|n| n.get(node2).and_then(|e| e.get(edge).cloned()))
+    fn get(&self, py: Python, item: &str) -> PyResult<Option<PyObject>> {
+        match self.edge_data.get(item) {
+            Some(inner_map) => {
+                let py_map = PyDict::new(py);
+
+                for (k, v) in inner_map.iter() {
+                    let inner_py_map = PyDict::new(py);
+
+                    for (k_inner, v_inner) in v.iter() {
+                        inner_py_map.set_item(k_inner, *v_inner)?;
+                    }
+
+                    py_map.set_item(k, inner_py_map)?;
+                }
+
+                Ok(Some(py_map.into()))
+            }
+            None => Ok(None)
+        }
     }
 
     fn loop_get_item(&self, number_loops: i32) {
         for _ in 0..number_loops {
-            self.get_item("a", "b", "99");
+            let _ = self.edge_data.get("a").unwrap().get("b").unwrap().get("99");
         }
     }
 
     fn loop_set_item(&mut self, number_loops: i32) {
         for _ in 0..number_loops {
-            self.push_edge_data(("a".to_string(), "b".to_string(), "99".to_string(), 99));
+            if let Some(edge_data_lvl1) = self.edge_data.get_mut("a") {
+                if let Some(edge_data_lvl2) = edge_data_lvl1.get_mut("b") {
+                    edge_data_lvl2.insert("99".to_string(), 99);
+                }
+            }
         }
     }
 }
 
-py_class!(pub class PyMultiDiGraph |py| {
-    data inner: RefCell<MultiDiGraph>;
+#[pymodule]
+fn rust_multidigraph(_py: Python, m: &PyModule) -> PyResult<()> {
+    m.add_class::<MultiDiGraph>()?;
+    Ok(())
+}
 
-    def __new__(_cls, node_data: PyDict, edge_data: PyDict) -> PyResult<PyMultiDiGraph> {
-        let mut rust_node_data: HashMap<String, i32> = HashMap::new();
-        let mut rust_edge_data: Vec<(String, String, String, i32)> = Vec::new();
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use pyo3::types::IntoPyDict;
 
-        for (key, value) in node_data.items(py) {
-            let key: String = key.extract(py)?;
-            let value: i32 = value.extract(py)?;
-            rust_node_data.insert(key, value);
-        }
-
-        for (key, value) in edge_data.items(py) {
-            let key: PyTuple = key.extract(py)?;
-            let value: i32 = value.extract(py)?;
-
-            let node1: String = key.get_item(py, 0).extract(py)?;
-            let node2: String = key.get_item(py, 1).extract(py)?;
-            let edge: String = key.get_item(py, 2).extract(py)?;
-
-            rust_edge_data.push((node1, node2, edge, value));
-        }
-
-        PyMultiDiGraph::create_instance(py, RefCell::new(MultiDiGraph::new(rust_node_data, rust_edge_data)))
+    #[test]
+    fn test_multidigraph() {
+        let gil = Python::acquire_gil();
+        let py = gil.python();
+        let multidigraph = Py::new(py, MultiDiGraph::new(HashMap::new(), HashMap::new())).unwrap();
+        pyo3::py_run!(py, multidigraph, "assert isinstance(multidigraph, rust_multidigraph.MultiDiGraph)");
     }
-
-    def loop_get_item(&self, number_loops: PyObject) -> PyResult<PyObject> {
-        let loops: i32 = number_loops.extract(py)?;
-        self.inner(py).borrow().loop_get_item(loops);
-        Ok(py.None())
-    }
-
-    def loop_set_item(&self, number_loops: PyObject) -> PyResult<PyObject> {
-        let loops: i32 = number_loops.extract(py)?;
-        self.inner(py).borrow_mut().loop_set_item(loops);
-        Ok(py.None())
-    }
-});
-
-
-py_module_initializer!(graphlib, initgraphlib, PyInit_graphlib, |py, m| {
-    m.add_class::<PyMultiDiGraph>(py)
-});
+}
