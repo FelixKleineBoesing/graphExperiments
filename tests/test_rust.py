@@ -1,4 +1,4 @@
-from pygraph.rust.graphlib import PyMultiDiGraph as MultiDiGraph
+from pygraph.rust.graphlib import MultiDiGraph
 from unittest import TestCase
 from datetime import datetime
 

@@ -1,5 +1,5 @@
 use pyo3::prelude::*;
-use pyo3::types::{IntoPyDict, PyDict, PyObject};
+use pyo3::types::{IntoPyDict, PyDict};
 use std::collections::HashMap;
 
 #[pyclass]
@@ -10,8 +10,9 @@ pub struct MultiDiGraph {
 
 #[pymethods]
 impl MultiDiGraph {
+
     #[new]
-    fn new(obj: &PyRawObject, node_data: HashMap<String, i32>, edge_data: HashMap<(String, String, String), i32>) {
+    fn new(node_data: HashMap<String, i32>, edge_data: HashMap<(String, String, String), i32>) -> Self {
         let mut graph = MultiDiGraph {
             node_data,
             edge_data: HashMap::new(),
@@ -21,7 +22,7 @@ impl MultiDiGraph {
             graph.push_edge_data(edge_id, data);
         }
 
-        obj.init(graph);
+        graph
     }
 
     fn push_edge_data(&mut self, edge_id: (String, String, String), data: i32) {
@@ -79,21 +80,8 @@ impl MultiDiGraph {
 }
 
 #[pymodule]
-fn rust_multidigraph(_py: Python, m: &PyModule) -> PyResult<()> {
+fn graphlib(_py: Python, m: &PyModule) -> PyResult<()> {
     m.add_class::<MultiDiGraph>()?;
     Ok(())
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use pyo3::types::IntoPyDict;
-
-    #[test]
-    fn test_multidigraph() {
-        let gil = Python::acquire_gil();
-        let py = gil.python();
-        let multidigraph = Py::new(py, MultiDiGraph::new(HashMap::new(), HashMap::new())).unwrap();
-        pyo3::py_run!(py, multidigraph, "assert isinstance(multidigraph, rust_multidigraph.MultiDiGraph)");
-    }
-}

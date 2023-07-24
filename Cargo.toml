@@ -12,4 +12,4 @@ path= "pygraph/rust/lib.rs"
 
 
 [dependencies]
-pyo3 = { version = "0.19.1", features = ["extension-module"] }
+pyo3 = { version = "0.19.1", features = ["extension-module", "auto-initialize"] }
