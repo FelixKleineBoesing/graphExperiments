@@ -1,32 +1,39 @@
-from pygraph.nativepy.multidigraph import MultiDiGraph
+import os
+import pandas as pd
 from unittest import TestCase
 from datetime import datetime
+import networkx as nx
+import json
+from pygraph.nativepy.multidigraph import MultiDiGraph
+from pygraph.nativepy.astar import astar_path
+from pygraph.utils import convert_edge_list
+from utils import GraphTester
 
 
 class TestMultiDiGraph(TestCase):
 
     def setUp(self):
         self.node_data = {
-            "a": 1,
-            "b": 2,
-            "c": 3,
+            "a": {"weight": 1},
+            "b": {"weight": 2},
+            "c": {"weight": 3},
         }
         self.edge_data = {
-            ("a", "b", "1"): 2,
-            ("a", "b", "2"): 3,
-            ("a", "c", "1"): 4,
-            ("a", "c", "2"): 5,
-            ("c", "a", "2"): 6,
+            ("a", "b", "1"): {"weight": 2},
+            ("a", "b", "2"): {"weight": 3},
+            ("a", "c", "1"): {"weight": 4},
+            ("a", "c", "2"): {"weight": 5},
+            ("c", "a", "2"): {"weight": 6},
         }
 
     def get_graph(self, number_edges: int):
         edge_data = {}
         for i in range(number_edges):
-            edge_data[("a", "b", str(i))] = i
-        return MultiDiGraph(node_data=self.node_data, edge_data=edge_data)
+            edge_data[("a", "b", str(i))] = {"weight": i}
+        return MultiDiGraph(edge_data=edge_data, node_data=self.node_data)
 
     def test_init(self):
-        graph = MultiDiGraph(node_data=self.node_data, edge_data=self.edge_data)
+        graph = MultiDiGraph(edge_data=self.edge_data, node_data=self.node_data)
 
     def test_getitem(self):
         print("Native Python get item")
@@ -49,4 +56,19 @@ class TestMultiDiGraph(TestCase):
             graph.loop_set_item(number_access)
             end = datetime.now()
             print(f"Edges: {edge_number}, Access: {number_access}, Time: {end - start}")
+
+
+class TestAStar(GraphTester):
+
+    def test_astar(self):
+        print("NetworkX AStar")
+        start = datetime.now()
+        edge_data_list = convert_edge_list(self.edge_data)
+        g = MultiDiGraph(edge_data=edge_data_list, node_data=self.node_data)
+        shortest_path = astar_path(g, "0", "7996", weight="weight")
+        end = datetime.now()
+        print(f"Path: {shortest_path}")
+        print(f"Time: {end - start}")
+
+
 

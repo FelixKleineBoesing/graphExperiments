@@ -1,4 +1,5 @@
 from pygraph.cython.multidigraph import MultiDiGraph, MultiDiGraphDict
+from pygraph.cython.astar import astar_path
 from unittest import TestCase
 from datetime import datetime
 
@@ -96,3 +97,14 @@ class TestMultiDiGraphDict(TestCase):
             print(f"Edges: {edge_number}, Access: {number_access}, Time: {end - start}")
 
 
+class TestAStar(GraphTester):
+
+    def test_astar(self):
+        print("NetworkX AStar")
+        start = datetime.now()
+        edge_data_list = convert_edge_list(self.edge_data)
+        g = MultiDiGraph(edge_data=edge_data_list, node_data=self.node_data)
+        shortest_path = astar_path(g, "0", "7996", weight="weight")
+        end = datetime.now()
+        print(f"Path: {shortest_path}")
+        print(f"Time: {end - start}")

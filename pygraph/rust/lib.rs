@@ -4,6 +4,7 @@ use std::collections::HashMap;
 
 #[pyclass]
 pub struct MultiDiGraph {
+    // this is extremly inefficient, but it is just for testing
     node_data: HashMap<String, i32>,
     edge_data: HashMap<String, HashMap<String, HashMap<String, i32>>>,
 }
