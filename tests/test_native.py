@@ -14,16 +14,16 @@ class TestMultiDiGraph(TestCase):
 
     def setUp(self):
         self.node_data = {
-            "a": {"weight": 1},
-            "b": {"weight": 2},
-            "c": {"weight": 3},
+            "a": {"pos": 1.1},
+            "b": {"pos": 2.1},
+            "c": {"pos": 3.2},
         }
         self.edge_data = {
-            ("a", "b", "1"): {"weight": 2},
-            ("a", "b", "2"): {"weight": 3},
-            ("a", "c", "1"): {"weight": 4},
-            ("a", "c", "2"): {"weight": 5},
-            ("c", "a", "2"): {"weight": 6},
+            ("a", "b", "1"): {"weight": 2.1},
+            ("a", "b", "2"): {"weight": 3.2},
+            ("a", "c", "1"): {"weight": 4.3},
+            ("a", "c", "2"): {"weight": 5.1},
+            ("c", "a", "2"): {"weight": 6.2},
         }
 
     def get_graph(self, number_edges: int):
@@ -62,9 +62,9 @@ class TestAStar(GraphTester):
 
     def test_astar(self):
         print("NetworkX AStar")
-        start = datetime.now()
         edge_data_list = convert_edge_list(self.edge_data)
         g = MultiDiGraph(edge_data=edge_data_list, node_data=self.node_data)
+        start = datetime.now()
         shortest_path = astar_path(g, "0", "7996", weight="weight")
         end = datetime.now()
         print(f"Path: {shortest_path}")

@@ -5,22 +5,24 @@ from libcpp.unordered_map cimport unordered_map
 from libcpp.string cimport string
 from libcpp.vector cimport vector
 
+
 cdef class MultiDiGraph:
-    cdef unordered_map[string, unordered_map[string, unordered_map[string, unordered_map]]] _edge_data
-    cdef unordered_map[string, unordered_map] _node_data  # assuming int data type for node_data values
 
     def __init__(self, node_data: dict, edge_data: dict):
-        self._node_data = <unordered_map[string, int]> node_data
-        self._edge_data = unordered_map[string, unordered_map[string, unordered_map[string, unordered_map]]]()
+        self._node_data = <unordered_map[string, unordered_map[string, double]]> node_data
+        self._edge_data = unordered_map[string, unordered_map[string, unordered_map[string, unordered_map[string, double]]]]()
         for edge_id, data in edge_data.items():
             self._push_edge_data(edge_id, data)
 
-    cdef _push_edge_data(self, edge_id: tuple, data: int):  # assuming int data type for data
+    cdef void _push_edge_data(self, tuple edge_id, dict data):
         cdef string first_key = edge_id[0].encode()
         cdef string second_key = edge_id[1].encode()
         cdef string third_key = edge_id[2].encode()
+        cdef unordered_map[string, double] new_map = unordered_map[string, double]()
+        for k, v in data.items():
+            new_map[k.encode()] = v
 
-        self._edge_data[first_key][second_key][third_key] = data
+        self._edge_data[first_key][second_key][third_key] = new_map
 
     def __getitem__(self, item):
         cdef string key = item.encode()
@@ -37,14 +39,13 @@ cdef class MultiDiGraph:
     @cython.wraparound(False)  # Deactivate negative indexing.
     def loop_set_item(self, int number_loops):
         cdef int i
+        cdef unordered_map[string, double] new_map = unordered_map[string, double]()
+        new_map["99"] = 0.01
         for i in range(number_loops):
-            self._edge_data['a']['b']['99'] = 99
+            self._edge_data['a']['b']['99'] = new_map
 
 
 cdef class MultiDiGraphDict:
-
-    cdef dict _edge_data
-    cdef dict _node_data
 
     def __init__(self, edge_data: dict, node_data: dict = None):
         if node_data is None:
@@ -54,7 +55,7 @@ cdef class MultiDiGraphDict:
         for edge_id, data in edge_data.items():
             self._push_edge_data(edge_id, data)
 
-    cdef _push_edge_data(self, edge_id: tuple, data: dict):
+    cdef void _push_edge_data(self, tuple edge_id, dict data):
         if edge_id[0] not in self._node_data:
             self._node_data[edge_id[0]] = {}
         if edge_id[1] not in self._node_data:
@@ -71,8 +72,7 @@ cdef class MultiDiGraphDict:
         return self._edge_data[key]
 
     def __contains__(self, item):
-        cdef string key = item.encode()
-        return key in self._edge_data
+        return item in self._edge_data
 
     @cython.boundscheck(False)  # Deactivate bounds checking
     @cython.wraparound(False)  # Deactivate negative indexing.
@@ -86,7 +86,7 @@ cdef class MultiDiGraphDict:
     def loop_set_item(self, int number_loops):
         cdef int i
         for i in range(number_loops):
-            self._edge_data['a']['b']['99'] = 99
+            self._edge_data['a']['b']['99'] = 0.01
 
     def get_node_data(self, node_id):
         return self._node_data[node_id]

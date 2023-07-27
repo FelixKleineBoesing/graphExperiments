@@ -1,7 +1,7 @@
 import json
 import os
 from unittest import TestCase
-
+import numpy as np
 import networkx as nx
 
 

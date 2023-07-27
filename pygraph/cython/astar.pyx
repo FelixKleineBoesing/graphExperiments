@@ -1,10 +1,12 @@
-# astar_path.pyx
+# distutils: language=c++
+# cython: c_string_type=unicode, c_string_encoding=utf8
 
 from heapq import heappop, heappush
 from itertools import count
 from cpython cimport bool
 cimport cython
 from pygraph.cython cimport multidigraph
+from libcpp.string cimport string
 
 
 cdef class NodeNotFound(Exception):
@@ -38,7 +40,7 @@ cdef base_heuristic(u, u_data, v, v_data):
     return 0
 
 
-cpdef astar_path(multidigraph.MultiDiGraph G, source, target, heuristic=None, weight="weight"):
+cpdef astar_path(multidigraph.MultiDiGraph G, string source, string target, heuristic=None, weight="weight"):
     if source not in G or target not in G:
         msg = f"Either source {source} or target {target} is not in G"
         raise NodeNotFound(msg)
@@ -50,6 +52,7 @@ cpdef astar_path(multidigraph.MultiDiGraph G, source, target, heuristic=None, we
     cdef list queue = [(0, next(count()), source, 0, None, None)]
     cdef dict enqueued = {}
     cdef dict explored = {}
+    cdef string curnode
 
     while queue:
         _, _, curnode, dist, parent, key = heappop(queue)

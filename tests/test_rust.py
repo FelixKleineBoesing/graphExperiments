@@ -2,14 +2,17 @@ from pygraph.rust.graphlib import MultiDiGraph
 from unittest import TestCase
 from datetime import datetime
 
+from pygraph.utils import convert_edge_list
+from utils import GraphTester
+
 
 class TestMultiDiGraph(TestCase):
 
     def setUp(self):
         self.node_data = {
-            "a": 1,
-            "b": 2,
-            "c": 3,
+            "a": {"pos": 1.1},
+            "b": {"pos": 2.2},
+            "c": {"pos": 3.3},
         }
         self.edge_data = {
             ("a", "b", "1"): 2,
@@ -50,3 +53,15 @@ class TestMultiDiGraph(TestCase):
             end = datetime.now()
             print(f"Edges: {edge_number}, Access: {number_access}, Time: {end - start}")
 
+
+class TestAStarRust(GraphTester):
+
+    def test_astar(self):
+        print("NetworkX AStar")
+        edge_data_list = convert_edge_list(self.edge_data)
+        g = MultiDiGraph(edge_data=edge_data_list, node_data=self.node_data)
+        start = datetime.now()
+        shortest_path = astar_path(g, "0", "7996", weight="weight")
+        end = datetime.now()
+        print(f"Path: {shortest_path}")
+        print(f"Time: {end - start}")
