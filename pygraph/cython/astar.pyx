@@ -41,7 +41,7 @@ cdef base_heuristic(u, u_data, v, v_data):
 
 
 cpdef astar_path(multidigraph.MultiDiGraph G, string source, string target, heuristic=None, weight="weight"):
-    if source not in G or target not in G:
+    if  not G.isin(source) or not G.isin(target):
         msg = f"Either source {source} or target {target} is not in G"
         raise NodeNotFound(msg)
 

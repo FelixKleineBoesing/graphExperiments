@@ -4,7 +4,7 @@ import cython
 from libcpp.unordered_map cimport unordered_map
 from libcpp.string cimport string
 from libcpp.vector cimport vector
-
+from libcpp cimport bool as cbool
 
 cdef class MultiDiGraph:
 
@@ -44,6 +44,13 @@ cdef class MultiDiGraph:
         for i in range(number_loops):
             self._edge_data['a']['b']['99'] = new_map
 
+    def __contains__(self, item):
+        cdef string key = item.encode()
+        c_bool =  self.isin(key)
+
+    cdef cbool isin(self, node):
+        return node in self._edge_data
+
 
 cdef class MultiDiGraphDict:
 
@@ -72,7 +79,11 @@ cdef class MultiDiGraphDict:
         return self._edge_data[key]
 
     def __contains__(self, item):
-        return item in self._edge_data
+        cdef string key = item.encode()
+        return self.isin(key)
+
+    cdef cbool isin(self, node):
+        return node in self._edge_data.keys()
 
     @cython.boundscheck(False)  # Deactivate bounds checking
     @cython.wraparound(False)  # Deactivate negative indexing.
@@ -88,5 +99,5 @@ cdef class MultiDiGraphDict:
         for i in range(number_loops):
             self._edge_data['a']['b']['99'] = 0.01
 
-    def get_node_data(self, node_id):
+    cdef get_node_data(self, node_id):
         return self._node_data[node_id]
