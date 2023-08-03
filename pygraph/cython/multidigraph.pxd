@@ -3,7 +3,6 @@
 from libcpp.unordered_map cimport unordered_map
 from libcpp.string cimport string
 from libcpp cimport bool
-cimport numpy
 
 
 cdef class MultiDiGraphDict:
@@ -11,6 +10,7 @@ cdef class MultiDiGraphDict:
     cdef dict  _node_data
     cdef void _push_edge_data(self, tuple edge_id, dict data)
     cdef bool isin(self, string node)
+    cdef dict get_node_data(self, string node)
 
 
 cdef class MultiDiGraph:
@@ -18,3 +18,4 @@ cdef class MultiDiGraph:
     cdef unordered_map[string, unordered_map[string, double]] _node_data  # assuming int data type for node_data values
     cdef void _push_edge_data(self, tuple edge_id, dict data)
     cdef bool isin(self, string node)
+    cdef unordered_map[string, double] get_node_data(self, string node)

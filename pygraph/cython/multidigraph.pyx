@@ -6,6 +6,7 @@ from libcpp.string cimport string
 from libcpp.vector cimport vector
 from libcpp cimport bool as cbool
 
+
 cdef class MultiDiGraph:
 
     def __init__(self, node_data: dict, edge_data: dict):
@@ -48,8 +49,14 @@ cdef class MultiDiGraph:
         cdef string key = item.encode()
         c_bool =  self.isin(key)
 
-    cdef cbool isin(self, node):
-        return node in self._edge_data
+    cdef cbool isin(self, string node):
+        if self._edge_data.find(node) != self._edge_data.end():
+            return True
+        else:
+            return False
+
+    cdef unordered_map[string, double] get_node_data(self, string node_id):
+        return self._node_data.at(node_id)
 
 
 cdef class MultiDiGraphDict:
@@ -82,8 +89,9 @@ cdef class MultiDiGraphDict:
         cdef string key = item.encode()
         return self.isin(key)
 
-    cdef cbool isin(self, node):
-        return node in self._edge_data.keys()
+    cdef cbool isin(self, string node):
+        py_string = node.decode('utf-8')
+        return py_string in self._edge_data
 
     @cython.boundscheck(False)  # Deactivate bounds checking
     @cython.wraparound(False)  # Deactivate negative indexing.
@@ -99,5 +107,7 @@ cdef class MultiDiGraphDict:
         for i in range(number_loops):
             self._edge_data['a']['b']['99'] = 0.01
 
-    cdef get_node_data(self, node_id):
-        return self._node_data[node_id]
+    cdef dict get_node_data(self, string node_id):
+        # convert cpp string to python string
+        py_string = node_id.decode('utf-8')
+        return self._node_data[py_string]

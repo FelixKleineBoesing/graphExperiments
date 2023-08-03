@@ -1,12 +1,13 @@
 # distutils: language=c++
 # cython: c_string_type=unicode, c_string_encoding=utf8
-
-from heapq import heappop, heappush
-from itertools import count
+from libcpp.unordered_map cimport unordered_map
 from cpython cimport bool
 cimport cython
 from pygraph.cython cimport multidigraph
+from pygraph.cython cimport queue_types
 from libcpp.string cimport string
+from libcpp.queue cimport priority_queue
+from libcpp.pair cimport pair
 
 
 cdef class NodeNotFound(Exception):
@@ -40,7 +41,7 @@ cdef base_heuristic(u, u_data, v, v_data):
     return 0
 
 
-cpdef astar_path(multidigraph.MultiDiGraph G, string source, string target, heuristic=None, weight="weight"):
+def astar_path(multidigraph.MultiDiGraph G, string source, string target, heuristic=None, weight="weight"):
     if  not G.isin(source) or not G.isin(target):
         msg = f"Either source {source} or target {target} is not in G"
         raise NodeNotFound(msg)
@@ -49,13 +50,18 @@ cpdef astar_path(multidigraph.MultiDiGraph G, string source, string target, heur
     if heuristic is None:
         heuristic = base_heuristic
 
-    cdef list queue = [(0, next(count()), source, 0, None, None)]
-    cdef dict enqueued = {}
-    cdef dict explored = {}
-    cdef string curnode
+    cdef priority_queue[queue_types.queueItem] queue
+    cdef int counter = 0
+    queue.push(queue_types.queueItem(0, counter, source, 0, "", ""))
 
-    while queue:
-        _, _, curnode, dist, parent, key = heappop(queue)
+    cdef unordered_map[string, pair[double, double]] enqueued
+    cdef unordered_map[string, pair[string, string]] explored
+    cdef string curnode
+    while not queue.empty():
+        queue_item = queue.top()
+        queue.pop()
+        curnode, dist, parent, key = queue_item.node, queue_item.dist, queue_item.parent, queue_item.key
+        print(f"curnode:{curnode}, Len queue: {queue.size()}")
         if curnode == target:
             path = [(parent, curnode, key)]
             node = parent
@@ -67,8 +73,8 @@ cpdef astar_path(multidigraph.MultiDiGraph G, string source, string target, heur
             path.reverse()
             return path
 
-        if curnode in explored:
-            if explored[curnode] == (None, None):
+        if explored.find(curnode) != explored.end():
+            if explored[curnode] == ("", ""):
                 continue
 
             qcost, h = enqueued[curnode]
@@ -88,7 +94,7 @@ cpdef astar_path(multidigraph.MultiDiGraph G, string source, string target, heur
                     key_previous=key_previous,
                     v_previous=parent,
                 )
-                if neighbor in enqueued:
+                if enqueued.find(neighbor) != enqueued.end():
                     qcost, h = enqueued[neighbor]
                     if qcost <= ncost:
                         continue
@@ -100,6 +106,7 @@ cpdef astar_path(multidigraph.MultiDiGraph G, string source, string target, heur
                         G.get_node_data(target),
                     )
                 enqueued[neighbor] = ncost, h
-                heappush(queue, (ncost + h, next(count()), neighbor, ncost, curnode, key))
+                counter += 1
+                queue.push(queue_types.queueItem(ncost + h, counter, neighbor, ncost, curnode, key))
 
     raise NoPath("No path found between %s and %s." % (source, target))

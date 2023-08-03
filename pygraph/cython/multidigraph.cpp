@@ -1397,8 +1397,8 @@ static const char *__pyx_f[] = {
 struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict;
 struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph;
 
-/* "pygraph/cython/multidigraph.pxd":6
- * from libcpp.string cimport string
+/* "pygraph/cython/multidigraph.pxd":8
+ * 
  * 
  * cdef class MultiDiGraphDict:             # <<<<<<<<<<<<<<
  *     cdef dict _edge_data
@@ -1412,7 +1412,7 @@ struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict {
 };
 
 
-/* "pygraph/cython/multidigraph.pxd":12
+/* "pygraph/cython/multidigraph.pxd":16
  * 
  * 
  * cdef class MultiDiGraph:             # <<<<<<<<<<<<<<
@@ -1428,7 +1428,7 @@ struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph {
 
 
 
-/* "pygraph/cython/multidigraph.pyx":48
+/* "pygraph/cython/multidigraph.pyx":62
  * 
  * 
  * cdef class MultiDiGraphDict:             # <<<<<<<<<<<<<<
@@ -1438,11 +1438,13 @@ struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph {
 
 struct __pyx_vtabstruct_7pygraph_6cython_12multidigraph_MultiDiGraphDict {
   void (*_push_edge_data)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *, PyObject *, PyObject *);
+  bool (*isin)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *, std::string);
+  PyObject *(*get_node_data)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *, std::string);
 };
 static struct __pyx_vtabstruct_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_vtabptr_7pygraph_6cython_12multidigraph_MultiDiGraphDict;
 
 
-/* "pygraph/cython/multidigraph.pyx":9
+/* "pygraph/cython/multidigraph.pyx":10
  * 
  * 
  * cdef class MultiDiGraph:             # <<<<<<<<<<<<<<
@@ -1452,6 +1454,8 @@ static struct __pyx_vtabstruct_7pygraph_6cython_12multidigraph_MultiDiGraphDict 
 
 struct __pyx_vtabstruct_7pygraph_6cython_12multidigraph_MultiDiGraph {
   void (*_push_edge_data)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *, PyObject *, PyObject *);
+  bool (*isin)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *, std::string);
+  std::unordered_map<std::string,double>  (*get_node_data)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *, std::string);
 };
 static struct __pyx_vtabstruct_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_vtabptr_7pygraph_6cython_12multidigraph_MultiDiGraph;
 /* #### Code section: utility_code_proto ### */
@@ -2183,7 +2187,11 @@ static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 /* #### Code section: module_declarations ### */
 static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_data(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, PyObject *__pyx_v_edge_id, PyObject *__pyx_v_data); /* proto*/
+static bool __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph_isin(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, std::string __pyx_v_node); /* proto*/
+static std::unordered_map<std::string,double>  __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph_get_node_data(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, std::string __pyx_v_node_id); /* proto*/
 static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edge_data(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, PyObject *__pyx_v_edge_id, PyObject *__pyx_v_data); /* proto*/
+static bool __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_isin(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, std::string __pyx_v_node); /* proto*/
+static PyObject *__pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_get_node_data(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, std::string __pyx_v_node_id); /* proto*/
 
 /* Module declarations from "libcpp.utility" */
 
@@ -2192,6 +2200,8 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
 /* Module declarations from "libc.string" */
 
 /* Module declarations from "libcpp.string" */
+
+/* Module declarations from "libcpp" */
 
 /* Module declarations from "cython" */
 
@@ -2230,7 +2240,7 @@ static const char __pyx_k_i[] = "i";
 static const char __pyx_k_99[] = "99";
 static const char __pyx_k__2[] = ".";
 static const char __pyx_k_gc[] = "gc";
-static const char __pyx_k__20[] = "?";
+static const char __pyx_k__18[] = "?";
 static const char __pyx_k_new[] = "__new__";
 static const char __pyx_k_dict[] = "__dict__";
 static const char __pyx_k_main[] = "__main__";
@@ -2240,6 +2250,8 @@ static const char __pyx_k_test[] = "__test__";
 static const char __pyx_k_items[] = "items";
 static const char __pyx_k_range[] = "range";
 static const char __pyx_k_state[] = "state";
+static const char __pyx_k_utf_8[] = "utf-8";
+static const char __pyx_k_decode[] = "decode";
 static const char __pyx_k_dict_2[] = "_dict";
 static const char __pyx_k_enable[] = "enable";
 static const char __pyx_k_encode[] = "encode";
@@ -2249,7 +2261,6 @@ static const char __pyx_k_reduce[] = "__reduce__";
 static const char __pyx_k_update[] = "update";
 static const char __pyx_k_disable[] = "disable";
 static const char __pyx_k_new_map[] = "new_map";
-static const char __pyx_k_node_id[] = "node_id";
 static const char __pyx_k_getstate[] = "__getstate__";
 static const char __pyx_k_pyx_type[] = "__pyx_type";
 static const char __pyx_k_setstate[] = "__setstate__";
@@ -2269,7 +2280,6 @@ static const char __pyx_k_pyx_checksum[] = "__pyx_checksum";
 static const char __pyx_k_stringsource[] = "<stringsource>";
 static const char __pyx_k_use_setstate[] = "use_setstate";
 static const char __pyx_k_class_getitem[] = "__class_getitem__";
-static const char __pyx_k_get_node_data[] = "get_node_data";
 static const char __pyx_k_loop_get_item[] = "loop_get_item";
 static const char __pyx_k_loop_set_item[] = "loop_set_item";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
@@ -2284,7 +2294,6 @@ static const char __pyx_k_MultiDiGraph_loop_set_item[] = "MultiDiGraph.loop_set_
 static const char __pyx_k_pygraph_cython_multidigraph[] = "pygraph.cython.multidigraph";
 static const char __pyx_k_MultiDiGraph___reduce_cython[] = "MultiDiGraph.__reduce_cython__";
 static const char __pyx_k_pyx_unpickle_MultiDiGraphDict[] = "__pyx_unpickle_MultiDiGraphDict";
-static const char __pyx_k_MultiDiGraphDict_get_node_data[] = "MultiDiGraphDict.get_node_data";
 static const char __pyx_k_MultiDiGraphDict_loop_get_item[] = "MultiDiGraphDict.loop_get_item";
 static const char __pyx_k_MultiDiGraphDict_loop_set_item[] = "MultiDiGraphDict.loop_set_item";
 static const char __pyx_k_MultiDiGraph___setstate_cython[] = "MultiDiGraph.__setstate_cython__";
@@ -2297,16 +2306,16 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph___init__(stru
 static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_2__getitem__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, PyObject *__pyx_v_item); /* proto */
 static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_4loop_get_item(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, int __pyx_v_number_loops); /* proto */
 static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_6loop_set_item(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, int __pyx_v_number_loops); /* proto */
-static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_8__reduce_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_10__setstate_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static int __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_8__contains__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, PyObject *__pyx_v_item); /* proto */
+static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_10__reduce_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_12__setstate_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
 static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict___init__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, PyObject *__pyx_v_edge_data, PyObject *__pyx_v_node_data); /* proto */
 static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_2__getitem__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, PyObject *__pyx_v_item); /* proto */
 static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_4__contains__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, PyObject *__pyx_v_item); /* proto */
 static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_6loop_get_item(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, int __pyx_v_number_loops); /* proto */
 static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_8loop_set_item(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, int __pyx_v_number_loops); /* proto */
-static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_10get_node_data(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, PyObject *__pyx_v_node_id); /* proto */
-static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_12__reduce_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self); /* proto */
-static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_14__setstate_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
+static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_10__reduce_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self); /* proto */
+static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_12__setstate_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph___pyx_unpickle_MultiDiGraph(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_2__pyx_unpickle_MultiDiGraphDict(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v___pyx_type, long __pyx_v___pyx_checksum, PyObject *__pyx_v___pyx_state); /* proto */
 static PyObject *__pyx_tp_new_7pygraph_6cython_12multidigraph_MultiDiGraphDict(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
@@ -2351,6 +2360,8 @@ typedef struct {
   #if CYTHON_USE_MODULE_STATE
   #endif
   #if CYTHON_USE_MODULE_STATE
+  #endif
+  #if CYTHON_USE_MODULE_STATE
   PyObject *__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraphDict;
   PyObject *__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraph;
   #endif
@@ -2362,7 +2373,6 @@ typedef struct {
   PyObject *__pyx_n_s_MultiDiGraphDict;
   PyObject *__pyx_n_s_MultiDiGraphDict___reduce_cython;
   PyObject *__pyx_n_s_MultiDiGraphDict___setstate_cyth;
-  PyObject *__pyx_n_s_MultiDiGraphDict_get_node_data;
   PyObject *__pyx_n_s_MultiDiGraphDict_loop_get_item;
   PyObject *__pyx_n_s_MultiDiGraphDict_loop_set_item;
   PyObject *__pyx_n_s_MultiDiGraph___reduce_cython;
@@ -2370,13 +2380,14 @@ typedef struct {
   PyObject *__pyx_n_s_MultiDiGraph_loop_get_item;
   PyObject *__pyx_n_s_MultiDiGraph_loop_set_item;
   PyObject *__pyx_n_s_PickleError;
+  PyObject *__pyx_n_s__18;
   PyObject *__pyx_kp_u__2;
-  PyObject *__pyx_n_s__20;
   PyObject *__pyx_n_s_a;
   PyObject *__pyx_n_s_asyncio_coroutines;
   PyObject *__pyx_n_s_b;
   PyObject *__pyx_n_s_class_getitem;
   PyObject *__pyx_n_s_cline_in_traceback;
+  PyObject *__pyx_n_s_decode;
   PyObject *__pyx_n_s_dict;
   PyObject *__pyx_n_s_dict_2;
   PyObject *__pyx_kp_u_disable;
@@ -2384,7 +2395,6 @@ typedef struct {
   PyObject *__pyx_kp_u_enable;
   PyObject *__pyx_n_s_encode;
   PyObject *__pyx_kp_u_gc;
-  PyObject *__pyx_n_s_get_node_data;
   PyObject *__pyx_n_s_getstate;
   PyObject *__pyx_n_s_i;
   PyObject *__pyx_n_s_import;
@@ -2399,7 +2409,6 @@ typedef struct {
   PyObject *__pyx_n_s_new;
   PyObject *__pyx_n_s_new_map;
   PyObject *__pyx_n_s_node_data;
-  PyObject *__pyx_n_s_node_id;
   PyObject *__pyx_n_s_number_loops;
   PyObject *__pyx_n_s_pickle;
   PyObject *__pyx_n_s_pygraph_cython_multidigraph;
@@ -2424,6 +2433,7 @@ typedef struct {
   PyObject *__pyx_n_s_test;
   PyObject *__pyx_n_s_update;
   PyObject *__pyx_n_s_use_setstate;
+  PyObject *__pyx_kp_s_utf_8;
   PyObject *__pyx_float_0_01;
   PyObject *__pyx_int_23036301;
   PyObject *__pyx_int_140251311;
@@ -2433,19 +2443,17 @@ typedef struct {
   PyObject *__pyx_tuple__5;
   PyObject *__pyx_tuple__7;
   PyObject *__pyx_tuple__9;
-  PyObject *__pyx_tuple__13;
-  PyObject *__pyx_tuple__17;
+  PyObject *__pyx_tuple__15;
   PyObject *__pyx_codeobj__4;
   PyObject *__pyx_codeobj__6;
   PyObject *__pyx_codeobj__8;
   PyObject *__pyx_codeobj__10;
   PyObject *__pyx_codeobj__11;
   PyObject *__pyx_codeobj__12;
+  PyObject *__pyx_codeobj__13;
   PyObject *__pyx_codeobj__14;
-  PyObject *__pyx_codeobj__15;
   PyObject *__pyx_codeobj__16;
-  PyObject *__pyx_codeobj__18;
-  PyObject *__pyx_codeobj__19;
+  PyObject *__pyx_codeobj__17;
 } __pyx_mstate;
 
 #if CYTHON_USE_MODULE_STATE
@@ -2498,7 +2506,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_MultiDiGraphDict);
   Py_CLEAR(clear_module_state->__pyx_n_s_MultiDiGraphDict___reduce_cython);
   Py_CLEAR(clear_module_state->__pyx_n_s_MultiDiGraphDict___setstate_cyth);
-  Py_CLEAR(clear_module_state->__pyx_n_s_MultiDiGraphDict_get_node_data);
   Py_CLEAR(clear_module_state->__pyx_n_s_MultiDiGraphDict_loop_get_item);
   Py_CLEAR(clear_module_state->__pyx_n_s_MultiDiGraphDict_loop_set_item);
   Py_CLEAR(clear_module_state->__pyx_n_s_MultiDiGraph___reduce_cython);
@@ -2506,13 +2513,14 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_MultiDiGraph_loop_get_item);
   Py_CLEAR(clear_module_state->__pyx_n_s_MultiDiGraph_loop_set_item);
   Py_CLEAR(clear_module_state->__pyx_n_s_PickleError);
+  Py_CLEAR(clear_module_state->__pyx_n_s__18);
   Py_CLEAR(clear_module_state->__pyx_kp_u__2);
-  Py_CLEAR(clear_module_state->__pyx_n_s__20);
   Py_CLEAR(clear_module_state->__pyx_n_s_a);
   Py_CLEAR(clear_module_state->__pyx_n_s_asyncio_coroutines);
   Py_CLEAR(clear_module_state->__pyx_n_s_b);
   Py_CLEAR(clear_module_state->__pyx_n_s_class_getitem);
   Py_CLEAR(clear_module_state->__pyx_n_s_cline_in_traceback);
+  Py_CLEAR(clear_module_state->__pyx_n_s_decode);
   Py_CLEAR(clear_module_state->__pyx_n_s_dict);
   Py_CLEAR(clear_module_state->__pyx_n_s_dict_2);
   Py_CLEAR(clear_module_state->__pyx_kp_u_disable);
@@ -2520,7 +2528,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_kp_u_enable);
   Py_CLEAR(clear_module_state->__pyx_n_s_encode);
   Py_CLEAR(clear_module_state->__pyx_kp_u_gc);
-  Py_CLEAR(clear_module_state->__pyx_n_s_get_node_data);
   Py_CLEAR(clear_module_state->__pyx_n_s_getstate);
   Py_CLEAR(clear_module_state->__pyx_n_s_i);
   Py_CLEAR(clear_module_state->__pyx_n_s_import);
@@ -2535,7 +2542,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_new);
   Py_CLEAR(clear_module_state->__pyx_n_s_new_map);
   Py_CLEAR(clear_module_state->__pyx_n_s_node_data);
-  Py_CLEAR(clear_module_state->__pyx_n_s_node_id);
   Py_CLEAR(clear_module_state->__pyx_n_s_number_loops);
   Py_CLEAR(clear_module_state->__pyx_n_s_pickle);
   Py_CLEAR(clear_module_state->__pyx_n_s_pygraph_cython_multidigraph);
@@ -2560,6 +2566,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_test);
   Py_CLEAR(clear_module_state->__pyx_n_s_update);
   Py_CLEAR(clear_module_state->__pyx_n_s_use_setstate);
+  Py_CLEAR(clear_module_state->__pyx_kp_s_utf_8);
   Py_CLEAR(clear_module_state->__pyx_float_0_01);
   Py_CLEAR(clear_module_state->__pyx_int_23036301);
   Py_CLEAR(clear_module_state->__pyx_int_140251311);
@@ -2569,19 +2576,17 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_tuple__5);
   Py_CLEAR(clear_module_state->__pyx_tuple__7);
   Py_CLEAR(clear_module_state->__pyx_tuple__9);
-  Py_CLEAR(clear_module_state->__pyx_tuple__13);
-  Py_CLEAR(clear_module_state->__pyx_tuple__17);
+  Py_CLEAR(clear_module_state->__pyx_tuple__15);
   Py_CLEAR(clear_module_state->__pyx_codeobj__4);
   Py_CLEAR(clear_module_state->__pyx_codeobj__6);
   Py_CLEAR(clear_module_state->__pyx_codeobj__8);
   Py_CLEAR(clear_module_state->__pyx_codeobj__10);
   Py_CLEAR(clear_module_state->__pyx_codeobj__11);
   Py_CLEAR(clear_module_state->__pyx_codeobj__12);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__13);
   Py_CLEAR(clear_module_state->__pyx_codeobj__14);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__15);
   Py_CLEAR(clear_module_state->__pyx_codeobj__16);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__18);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__19);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__17);
   return 0;
 }
 #endif
@@ -2612,7 +2617,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_MultiDiGraphDict);
   Py_VISIT(traverse_module_state->__pyx_n_s_MultiDiGraphDict___reduce_cython);
   Py_VISIT(traverse_module_state->__pyx_n_s_MultiDiGraphDict___setstate_cyth);
-  Py_VISIT(traverse_module_state->__pyx_n_s_MultiDiGraphDict_get_node_data);
   Py_VISIT(traverse_module_state->__pyx_n_s_MultiDiGraphDict_loop_get_item);
   Py_VISIT(traverse_module_state->__pyx_n_s_MultiDiGraphDict_loop_set_item);
   Py_VISIT(traverse_module_state->__pyx_n_s_MultiDiGraph___reduce_cython);
@@ -2620,13 +2624,14 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_MultiDiGraph_loop_get_item);
   Py_VISIT(traverse_module_state->__pyx_n_s_MultiDiGraph_loop_set_item);
   Py_VISIT(traverse_module_state->__pyx_n_s_PickleError);
+  Py_VISIT(traverse_module_state->__pyx_n_s__18);
   Py_VISIT(traverse_module_state->__pyx_kp_u__2);
-  Py_VISIT(traverse_module_state->__pyx_n_s__20);
   Py_VISIT(traverse_module_state->__pyx_n_s_a);
   Py_VISIT(traverse_module_state->__pyx_n_s_asyncio_coroutines);
   Py_VISIT(traverse_module_state->__pyx_n_s_b);
   Py_VISIT(traverse_module_state->__pyx_n_s_class_getitem);
   Py_VISIT(traverse_module_state->__pyx_n_s_cline_in_traceback);
+  Py_VISIT(traverse_module_state->__pyx_n_s_decode);
   Py_VISIT(traverse_module_state->__pyx_n_s_dict);
   Py_VISIT(traverse_module_state->__pyx_n_s_dict_2);
   Py_VISIT(traverse_module_state->__pyx_kp_u_disable);
@@ -2634,7 +2639,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_kp_u_enable);
   Py_VISIT(traverse_module_state->__pyx_n_s_encode);
   Py_VISIT(traverse_module_state->__pyx_kp_u_gc);
-  Py_VISIT(traverse_module_state->__pyx_n_s_get_node_data);
   Py_VISIT(traverse_module_state->__pyx_n_s_getstate);
   Py_VISIT(traverse_module_state->__pyx_n_s_i);
   Py_VISIT(traverse_module_state->__pyx_n_s_import);
@@ -2649,7 +2653,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_new);
   Py_VISIT(traverse_module_state->__pyx_n_s_new_map);
   Py_VISIT(traverse_module_state->__pyx_n_s_node_data);
-  Py_VISIT(traverse_module_state->__pyx_n_s_node_id);
   Py_VISIT(traverse_module_state->__pyx_n_s_number_loops);
   Py_VISIT(traverse_module_state->__pyx_n_s_pickle);
   Py_VISIT(traverse_module_state->__pyx_n_s_pygraph_cython_multidigraph);
@@ -2674,6 +2677,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_test);
   Py_VISIT(traverse_module_state->__pyx_n_s_update);
   Py_VISIT(traverse_module_state->__pyx_n_s_use_setstate);
+  Py_VISIT(traverse_module_state->__pyx_kp_s_utf_8);
   Py_VISIT(traverse_module_state->__pyx_float_0_01);
   Py_VISIT(traverse_module_state->__pyx_int_23036301);
   Py_VISIT(traverse_module_state->__pyx_int_140251311);
@@ -2683,19 +2687,17 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_tuple__5);
   Py_VISIT(traverse_module_state->__pyx_tuple__7);
   Py_VISIT(traverse_module_state->__pyx_tuple__9);
-  Py_VISIT(traverse_module_state->__pyx_tuple__13);
-  Py_VISIT(traverse_module_state->__pyx_tuple__17);
+  Py_VISIT(traverse_module_state->__pyx_tuple__15);
   Py_VISIT(traverse_module_state->__pyx_codeobj__4);
   Py_VISIT(traverse_module_state->__pyx_codeobj__6);
   Py_VISIT(traverse_module_state->__pyx_codeobj__8);
   Py_VISIT(traverse_module_state->__pyx_codeobj__10);
   Py_VISIT(traverse_module_state->__pyx_codeobj__11);
   Py_VISIT(traverse_module_state->__pyx_codeobj__12);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__13);
   Py_VISIT(traverse_module_state->__pyx_codeobj__14);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__15);
   Py_VISIT(traverse_module_state->__pyx_codeobj__16);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__18);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__19);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__17);
   return 0;
 }
 #endif
@@ -2737,6 +2739,8 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #if CYTHON_USE_MODULE_STATE
 #endif
 #if CYTHON_USE_MODULE_STATE
+#endif
+#if CYTHON_USE_MODULE_STATE
 #define __pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraphDict __pyx_mstate_global->__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraphDict
 #define __pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraph __pyx_mstate_global->__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraph
 #endif
@@ -2748,7 +2752,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_MultiDiGraphDict __pyx_mstate_global->__pyx_n_s_MultiDiGraphDict
 #define __pyx_n_s_MultiDiGraphDict___reduce_cython __pyx_mstate_global->__pyx_n_s_MultiDiGraphDict___reduce_cython
 #define __pyx_n_s_MultiDiGraphDict___setstate_cyth __pyx_mstate_global->__pyx_n_s_MultiDiGraphDict___setstate_cyth
-#define __pyx_n_s_MultiDiGraphDict_get_node_data __pyx_mstate_global->__pyx_n_s_MultiDiGraphDict_get_node_data
 #define __pyx_n_s_MultiDiGraphDict_loop_get_item __pyx_mstate_global->__pyx_n_s_MultiDiGraphDict_loop_get_item
 #define __pyx_n_s_MultiDiGraphDict_loop_set_item __pyx_mstate_global->__pyx_n_s_MultiDiGraphDict_loop_set_item
 #define __pyx_n_s_MultiDiGraph___reduce_cython __pyx_mstate_global->__pyx_n_s_MultiDiGraph___reduce_cython
@@ -2756,13 +2759,14 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_MultiDiGraph_loop_get_item __pyx_mstate_global->__pyx_n_s_MultiDiGraph_loop_get_item
 #define __pyx_n_s_MultiDiGraph_loop_set_item __pyx_mstate_global->__pyx_n_s_MultiDiGraph_loop_set_item
 #define __pyx_n_s_PickleError __pyx_mstate_global->__pyx_n_s_PickleError
+#define __pyx_n_s__18 __pyx_mstate_global->__pyx_n_s__18
 #define __pyx_kp_u__2 __pyx_mstate_global->__pyx_kp_u__2
-#define __pyx_n_s__20 __pyx_mstate_global->__pyx_n_s__20
 #define __pyx_n_s_a __pyx_mstate_global->__pyx_n_s_a
 #define __pyx_n_s_asyncio_coroutines __pyx_mstate_global->__pyx_n_s_asyncio_coroutines
 #define __pyx_n_s_b __pyx_mstate_global->__pyx_n_s_b
 #define __pyx_n_s_class_getitem __pyx_mstate_global->__pyx_n_s_class_getitem
 #define __pyx_n_s_cline_in_traceback __pyx_mstate_global->__pyx_n_s_cline_in_traceback
+#define __pyx_n_s_decode __pyx_mstate_global->__pyx_n_s_decode
 #define __pyx_n_s_dict __pyx_mstate_global->__pyx_n_s_dict
 #define __pyx_n_s_dict_2 __pyx_mstate_global->__pyx_n_s_dict_2
 #define __pyx_kp_u_disable __pyx_mstate_global->__pyx_kp_u_disable
@@ -2770,7 +2774,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_kp_u_enable __pyx_mstate_global->__pyx_kp_u_enable
 #define __pyx_n_s_encode __pyx_mstate_global->__pyx_n_s_encode
 #define __pyx_kp_u_gc __pyx_mstate_global->__pyx_kp_u_gc
-#define __pyx_n_s_get_node_data __pyx_mstate_global->__pyx_n_s_get_node_data
 #define __pyx_n_s_getstate __pyx_mstate_global->__pyx_n_s_getstate
 #define __pyx_n_s_i __pyx_mstate_global->__pyx_n_s_i
 #define __pyx_n_s_import __pyx_mstate_global->__pyx_n_s_import
@@ -2785,7 +2788,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_new __pyx_mstate_global->__pyx_n_s_new
 #define __pyx_n_s_new_map __pyx_mstate_global->__pyx_n_s_new_map
 #define __pyx_n_s_node_data __pyx_mstate_global->__pyx_n_s_node_data
-#define __pyx_n_s_node_id __pyx_mstate_global->__pyx_n_s_node_id
 #define __pyx_n_s_number_loops __pyx_mstate_global->__pyx_n_s_number_loops
 #define __pyx_n_s_pickle __pyx_mstate_global->__pyx_n_s_pickle
 #define __pyx_n_s_pygraph_cython_multidigraph __pyx_mstate_global->__pyx_n_s_pygraph_cython_multidigraph
@@ -2810,6 +2812,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_test __pyx_mstate_global->__pyx_n_s_test
 #define __pyx_n_s_update __pyx_mstate_global->__pyx_n_s_update
 #define __pyx_n_s_use_setstate __pyx_mstate_global->__pyx_n_s_use_setstate
+#define __pyx_kp_s_utf_8 __pyx_mstate_global->__pyx_kp_s_utf_8
 #define __pyx_float_0_01 __pyx_mstate_global->__pyx_float_0_01
 #define __pyx_int_23036301 __pyx_mstate_global->__pyx_int_23036301
 #define __pyx_int_140251311 __pyx_mstate_global->__pyx_int_140251311
@@ -2819,19 +2822,17 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_tuple__5 __pyx_mstate_global->__pyx_tuple__5
 #define __pyx_tuple__7 __pyx_mstate_global->__pyx_tuple__7
 #define __pyx_tuple__9 __pyx_mstate_global->__pyx_tuple__9
-#define __pyx_tuple__13 __pyx_mstate_global->__pyx_tuple__13
-#define __pyx_tuple__17 __pyx_mstate_global->__pyx_tuple__17
+#define __pyx_tuple__15 __pyx_mstate_global->__pyx_tuple__15
 #define __pyx_codeobj__4 __pyx_mstate_global->__pyx_codeobj__4
 #define __pyx_codeobj__6 __pyx_mstate_global->__pyx_codeobj__6
 #define __pyx_codeobj__8 __pyx_mstate_global->__pyx_codeobj__8
 #define __pyx_codeobj__10 __pyx_mstate_global->__pyx_codeobj__10
 #define __pyx_codeobj__11 __pyx_mstate_global->__pyx_codeobj__11
 #define __pyx_codeobj__12 __pyx_mstate_global->__pyx_codeobj__12
+#define __pyx_codeobj__13 __pyx_mstate_global->__pyx_codeobj__13
 #define __pyx_codeobj__14 __pyx_mstate_global->__pyx_codeobj__14
-#define __pyx_codeobj__15 __pyx_mstate_global->__pyx_codeobj__15
 #define __pyx_codeobj__16 __pyx_mstate_global->__pyx_codeobj__16
-#define __pyx_codeobj__18 __pyx_mstate_global->__pyx_codeobj__18
-#define __pyx_codeobj__19 __pyx_mstate_global->__pyx_codeobj__19
+#define __pyx_codeobj__17 __pyx_mstate_global->__pyx_codeobj__17
 /* #### Code section: module_code ### */
 
 /* "string.to_py":31
@@ -4347,7 +4348,7 @@ static std::unordered_map<std::string,std::unordered_map<std::string,std::unorde
   return __pyx_r;
 }
 
-/* "pygraph/cython/multidigraph.pyx":11
+/* "pygraph/cython/multidigraph.pyx":12
  * cdef class MultiDiGraph:
  * 
  *     def __init__(self, node_data: dict, edge_data: dict):             # <<<<<<<<<<<<<<
@@ -4385,19 +4386,19 @@ static int __pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_1__init__(PyO
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_node_data)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 11, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 12, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (likely((values[1] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_edge_data)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 11, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 12, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 11, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, 1); __PYX_ERR(0, 12, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 11, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 12, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 2)) {
       goto __pyx_L5_argtuple_error;
@@ -4410,14 +4411,14 @@ static int __pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_1__init__(PyO
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 11, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 1, 2, 2, __pyx_nargs); __PYX_ERR(0, 12, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraph.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_node_data), (&PyDict_Type), 0, "node_data", 1))) __PYX_ERR(0, 11, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_edge_data), (&PyDict_Type), 0, "edge_data", 1))) __PYX_ERR(0, 11, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_node_data), (&PyDict_Type), 0, "node_data", 1))) __PYX_ERR(0, 12, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_edge_data), (&PyDict_Type), 0, "edge_data", 1))) __PYX_ERR(0, 12, __pyx_L1_error)
   __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph___init__(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *)__pyx_v_self), __pyx_v_node_data, __pyx_v_edge_data);
 
   /* function exit code */
@@ -4448,17 +4449,17 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph___init__(stru
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__init__", 0);
 
-  /* "pygraph/cython/multidigraph.pyx":12
+  /* "pygraph/cython/multidigraph.pyx":13
  * 
  *     def __init__(self, node_data: dict, edge_data: dict):
  *         self._node_data = <unordered_map[string, unordered_map[string, double]]> node_data             # <<<<<<<<<<<<<<
  *         self._edge_data = unordered_map[string, unordered_map[string, unordered_map[string, unordered_map[string, double]]]]()
  *         for edge_id, data in edge_data.items():
  */
-  __pyx_t_1 = __pyx_convert_unordered_map_from_py_std_3a__3a_string__and_std_3a__3a_unordered_map_3c_std_3a__3a_string_2c_double_3e___(__pyx_v_node_data); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 12, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_unordered_map_from_py_std_3a__3a_string__and_std_3a__3a_unordered_map_3c_std_3a__3a_string_2c_double_3e___(__pyx_v_node_data); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 13, __pyx_L1_error)
   __pyx_v_self->_node_data = ((std::unordered_map<std::string,std::unordered_map<std::string,double> > )__pyx_t_1);
 
-  /* "pygraph/cython/multidigraph.pyx":13
+  /* "pygraph/cython/multidigraph.pyx":14
  *     def __init__(self, node_data: dict, edge_data: dict):
  *         self._node_data = <unordered_map[string, unordered_map[string, double]]> node_data
  *         self._edge_data = unordered_map[string, unordered_map[string, unordered_map[string, unordered_map[string, double]]]]()             # <<<<<<<<<<<<<<
@@ -4469,11 +4470,11 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph___init__(stru
     __pyx_t_2 = std::unordered_map<std::string,std::unordered_map<std::string,std::unordered_map<std::string,std::unordered_map<std::string,double> > > > ();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 13, __pyx_L1_error)
+    __PYX_ERR(0, 14, __pyx_L1_error)
   }
   __pyx_v_self->_edge_data = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_2);
 
-  /* "pygraph/cython/multidigraph.pyx":14
+  /* "pygraph/cython/multidigraph.pyx":15
  *         self._node_data = <unordered_map[string, unordered_map[string, double]]> node_data
  *         self._edge_data = unordered_map[string, unordered_map[string, unordered_map[string, unordered_map[string, double]]]]()
  *         for edge_id, data in edge_data.items():             # <<<<<<<<<<<<<<
@@ -4481,7 +4482,7 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph___init__(stru
  * 
  */
   __pyx_t_4 = 0;
-  __pyx_t_7 = __Pyx_dict_iterator(__pyx_v_edge_data, 1, __pyx_n_s_items, (&__pyx_t_5), (&__pyx_t_6)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 14, __pyx_L1_error)
+  __pyx_t_7 = __Pyx_dict_iterator(__pyx_v_edge_data, 1, __pyx_n_s_items, (&__pyx_t_5), (&__pyx_t_6)); if (unlikely(!__pyx_t_7)) __PYX_ERR(0, 15, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_7);
   __Pyx_XDECREF(__pyx_t_3);
   __pyx_t_3 = __pyx_t_7;
@@ -4489,7 +4490,7 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph___init__(stru
   while (1) {
     __pyx_t_9 = __Pyx_dict_iter_next(__pyx_t_3, __pyx_t_5, &__pyx_t_4, &__pyx_t_7, &__pyx_t_8, NULL, __pyx_t_6);
     if (unlikely(__pyx_t_9 == 0)) break;
-    if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(0, 14, __pyx_L1_error)
+    if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(0, 15, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_GOTREF(__pyx_t_8);
     __Pyx_XDECREF_SET(__pyx_v_edge_id, __pyx_t_7);
@@ -4497,20 +4498,20 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph___init__(stru
     __Pyx_XDECREF_SET(__pyx_v_data, __pyx_t_8);
     __pyx_t_8 = 0;
 
-    /* "pygraph/cython/multidigraph.pyx":15
+    /* "pygraph/cython/multidigraph.pyx":16
  *         self._edge_data = unordered_map[string, unordered_map[string, unordered_map[string, unordered_map[string, double]]]]()
  *         for edge_id, data in edge_data.items():
  *             self._push_edge_data(edge_id, data)             # <<<<<<<<<<<<<<
  * 
  *     cdef void _push_edge_data(self, tuple edge_id, dict data):
  */
-    if (!(likely(PyTuple_CheckExact(__pyx_v_edge_id))||((__pyx_v_edge_id) == Py_None) || __Pyx_RaiseUnexpectedTypeError("tuple", __pyx_v_edge_id))) __PYX_ERR(0, 15, __pyx_L1_error)
-    if (!(likely(PyDict_CheckExact(__pyx_v_data))||((__pyx_v_data) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_v_data))) __PYX_ERR(0, 15, __pyx_L1_error)
-    ((struct __pyx_vtabstruct_7pygraph_6cython_12multidigraph_MultiDiGraph *)__pyx_v_self->__pyx_vtab)->_push_edge_data(__pyx_v_self, ((PyObject*)__pyx_v_edge_id), ((PyObject*)__pyx_v_data)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 15, __pyx_L1_error)
+    if (!(likely(PyTuple_CheckExact(__pyx_v_edge_id))||((__pyx_v_edge_id) == Py_None) || __Pyx_RaiseUnexpectedTypeError("tuple", __pyx_v_edge_id))) __PYX_ERR(0, 16, __pyx_L1_error)
+    if (!(likely(PyDict_CheckExact(__pyx_v_data))||((__pyx_v_data) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_v_data))) __PYX_ERR(0, 16, __pyx_L1_error)
+    ((struct __pyx_vtabstruct_7pygraph_6cython_12multidigraph_MultiDiGraph *)__pyx_v_self->__pyx_vtab)->_push_edge_data(__pyx_v_self, ((PyObject*)__pyx_v_edge_id), ((PyObject*)__pyx_v_data)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 16, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
-  /* "pygraph/cython/multidigraph.pyx":11
+  /* "pygraph/cython/multidigraph.pyx":12
  * cdef class MultiDiGraph:
  * 
  *     def __init__(self, node_data: dict, edge_data: dict):             # <<<<<<<<<<<<<<
@@ -4534,7 +4535,7 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph___init__(stru
   return __pyx_r;
 }
 
-/* "pygraph/cython/multidigraph.pyx":17
+/* "pygraph/cython/multidigraph.pyx":18
  *             self._push_edge_data(edge_id, data)
  * 
  *     cdef void _push_edge_data(self, tuple edge_id, dict data):             # <<<<<<<<<<<<<<
@@ -4566,7 +4567,7 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_push_edge_data", 0);
 
-  /* "pygraph/cython/multidigraph.pyx":18
+  /* "pygraph/cython/multidigraph.pyx":19
  * 
  *     cdef void _push_edge_data(self, tuple edge_id, dict data):
  *         cdef string first_key = edge_id[0].encode()             # <<<<<<<<<<<<<<
@@ -4575,11 +4576,11 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
  */
   if (unlikely(__pyx_v_edge_id == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 18, __pyx_L1_error)
+    __PYX_ERR(0, 19, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4598,15 +4599,15 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
     PyObject *__pyx_callargs[1] = {__pyx_t_2, };
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 18, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 19, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 18, __pyx_L1_error)
+  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 19, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_first_key = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_5);
 
-  /* "pygraph/cython/multidigraph.pyx":19
+  /* "pygraph/cython/multidigraph.pyx":20
  *     cdef void _push_edge_data(self, tuple edge_id, dict data):
  *         cdef string first_key = edge_id[0].encode()
  *         cdef string second_key = edge_id[1].encode()             # <<<<<<<<<<<<<<
@@ -4615,11 +4616,11 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
  */
   if (unlikely(__pyx_v_edge_id == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 19, __pyx_L1_error)
+    __PYX_ERR(0, 20, __pyx_L1_error)
   }
-  __pyx_t_3 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_t_3, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __pyx_t_3 = NULL;
@@ -4638,15 +4639,15 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
     PyObject *__pyx_callargs[1] = {__pyx_t_3, };
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 19, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
-  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 19, __pyx_L1_error)
+  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_second_key = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_5);
 
-  /* "pygraph/cython/multidigraph.pyx":20
+  /* "pygraph/cython/multidigraph.pyx":21
  *         cdef string first_key = edge_id[0].encode()
  *         cdef string second_key = edge_id[1].encode()
  *         cdef string third_key = edge_id[2].encode()             # <<<<<<<<<<<<<<
@@ -4655,11 +4656,11 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
  */
   if (unlikely(__pyx_v_edge_id == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 20, __pyx_L1_error)
+    __PYX_ERR(0, 21, __pyx_L1_error)
   }
-  __pyx_t_2 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   __pyx_t_2 = NULL;
@@ -4678,15 +4679,15 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
     PyObject *__pyx_callargs[1] = {__pyx_t_2, };
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 20, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 21, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   }
-  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 20, __pyx_L1_error)
+  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 21, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_third_key = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_5);
 
-  /* "pygraph/cython/multidigraph.pyx":21
+  /* "pygraph/cython/multidigraph.pyx":22
  *         cdef string second_key = edge_id[1].encode()
  *         cdef string third_key = edge_id[2].encode()
  *         cdef unordered_map[string, double] new_map = unordered_map[string, double]()             # <<<<<<<<<<<<<<
@@ -4697,11 +4698,11 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
     __pyx_t_6 = std::unordered_map<std::string,double> ();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 21, __pyx_L1_error)
+    __PYX_ERR(0, 22, __pyx_L1_error)
   }
   __pyx_v_new_map = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_6);
 
-  /* "pygraph/cython/multidigraph.pyx":22
+  /* "pygraph/cython/multidigraph.pyx":23
  *         cdef string third_key = edge_id[2].encode()
  *         cdef unordered_map[string, double] new_map = unordered_map[string, double]()
  *         for k, v in data.items():             # <<<<<<<<<<<<<<
@@ -4711,9 +4712,9 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
   __pyx_t_7 = 0;
   if (unlikely(__pyx_v_data == Py_None)) {
     PyErr_Format(PyExc_AttributeError, "'NoneType' object has no attribute '%.30s'", "items");
-    __PYX_ERR(0, 22, __pyx_L1_error)
+    __PYX_ERR(0, 23, __pyx_L1_error)
   }
-  __pyx_t_3 = __Pyx_dict_iterator(__pyx_v_data, 1, __pyx_n_s_items, (&__pyx_t_8), (&__pyx_t_4)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 22, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_dict_iterator(__pyx_v_data, 1, __pyx_n_s_items, (&__pyx_t_8), (&__pyx_t_4)); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_XDECREF(__pyx_t_1);
   __pyx_t_1 = __pyx_t_3;
@@ -4721,7 +4722,7 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
   while (1) {
     __pyx_t_9 = __Pyx_dict_iter_next(__pyx_t_1, __pyx_t_8, &__pyx_t_7, &__pyx_t_3, &__pyx_t_2, NULL, __pyx_t_4);
     if (unlikely(__pyx_t_9 == 0)) break;
-    if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(0, 22, __pyx_L1_error)
+    if (unlikely(__pyx_t_9 == -1)) __PYX_ERR(0, 23, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_XDECREF_SET(__pyx_v_k, __pyx_t_3);
@@ -4729,15 +4730,15 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
     __Pyx_XDECREF_SET(__pyx_v_v, __pyx_t_2);
     __pyx_t_2 = 0;
 
-    /* "pygraph/cython/multidigraph.pyx":23
+    /* "pygraph/cython/multidigraph.pyx":24
  *         cdef unordered_map[string, double] new_map = unordered_map[string, double]()
  *         for k, v in data.items():
  *             new_map[k.encode()] = v             # <<<<<<<<<<<<<<
  * 
  *         self._edge_data[first_key][second_key][third_key] = new_map
  */
-    __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_v); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L1_error)
-    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_k, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 23, __pyx_L1_error)
+    __pyx_t_10 = __pyx_PyFloat_AsDouble(__pyx_v_v); if (unlikely((__pyx_t_10 == (double)-1) && PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_v_k, __pyx_n_s_encode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 24, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __pyx_t_11 = NULL;
     __pyx_t_9 = 0;
@@ -4755,17 +4756,17 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
       PyObject *__pyx_callargs[1] = {__pyx_t_11, };
       __pyx_t_2 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_9, 0+__pyx_t_9);
       __Pyx_XDECREF(__pyx_t_11); __pyx_t_11 = 0;
-      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 23, __pyx_L1_error)
+      if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 24, __pyx_L1_error)
       __Pyx_GOTREF(__pyx_t_2);
       __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     }
-    __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 23, __pyx_L1_error)
+    __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_2); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 24, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
     (__pyx_v_new_map[__pyx_t_5]) = __pyx_t_10;
   }
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pygraph/cython/multidigraph.pyx":25
+  /* "pygraph/cython/multidigraph.pyx":26
  *             new_map[k.encode()] = v
  * 
  *         self._edge_data[first_key][second_key][third_key] = new_map             # <<<<<<<<<<<<<<
@@ -4774,7 +4775,7 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
  */
   (((__pyx_v_self->_edge_data[__pyx_v_first_key])[__pyx_v_second_key])[__pyx_v_third_key]) = __pyx_v_new_map;
 
-  /* "pygraph/cython/multidigraph.pyx":17
+  /* "pygraph/cython/multidigraph.pyx":18
  *             self._push_edge_data(edge_id, data)
  * 
  *     cdef void _push_edge_data(self, tuple edge_id, dict data):             # <<<<<<<<<<<<<<
@@ -4796,7 +4797,7 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_da
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pygraph/cython/multidigraph.pyx":27
+/* "pygraph/cython/multidigraph.pyx":28
  *         self._edge_data[first_key][second_key][third_key] = new_map
  * 
  *     def __getitem__(self, item):             # <<<<<<<<<<<<<<
@@ -4832,14 +4833,14 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_2__geti
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 0);
 
-  /* "pygraph/cython/multidigraph.pyx":28
+  /* "pygraph/cython/multidigraph.pyx":29
  * 
  *     def __getitem__(self, item):
  *         cdef string key = item.encode()             # <<<<<<<<<<<<<<
  *         return self._edge_data[key]
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -4857,15 +4858,15 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_2__geti
     PyObject *__pyx_callargs[1] = {__pyx_t_3, };
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 28, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
-  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 28, __pyx_L1_error)
+  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 29, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_key = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_5);
 
-  /* "pygraph/cython/multidigraph.pyx":29
+  /* "pygraph/cython/multidigraph.pyx":30
  *     def __getitem__(self, item):
  *         cdef string key = item.encode()
  *         return self._edge_data[key]             # <<<<<<<<<<<<<<
@@ -4873,13 +4874,13 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_2__geti
  *     @cython.boundscheck(False)  # Deactivate bounds checking
  */
   __Pyx_XDECREF(__pyx_r);
-  __pyx_t_1 = __pyx_convert_unordered_map_to_py_std_3a__3a_string____std_3a__3a_unordered_map_3c_std_3a__3a_string_2c_std_3a__3a_unordered_map_3c_std_3a__3a_string_2c_double_3e____3e___((__pyx_v_self->_edge_data[__pyx_v_key])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 29, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_unordered_map_to_py_std_3a__3a_string____std_3a__3a_unordered_map_3c_std_3a__3a_string_2c_std_3a__3a_unordered_map_3c_std_3a__3a_string_2c_double_3e____3e___((__pyx_v_self->_edge_data[__pyx_v_key])); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __pyx_r = __pyx_t_1;
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pygraph/cython/multidigraph.pyx":27
+  /* "pygraph/cython/multidigraph.pyx":28
  *         self._edge_data[first_key][second_key][third_key] = new_map
  * 
  *     def __getitem__(self, item):             # <<<<<<<<<<<<<<
@@ -4900,7 +4901,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_2__geti
   return __pyx_r;
 }
 
-/* "pygraph/cython/multidigraph.pyx":31
+/* "pygraph/cython/multidigraph.pyx":32
  *         return self._edge_data[key]
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
@@ -4950,23 +4951,23 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_number_loops)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 31, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 32, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "loop_get_item") < 0)) __PYX_ERR(0, 31, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "loop_get_item") < 0)) __PYX_ERR(0, 32, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
     }
-    __pyx_v_number_loops = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_number_loops == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 33, __pyx_L3_error)
+    __pyx_v_number_loops = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_number_loops == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 34, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("loop_get_item", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 31, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("loop_get_item", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 32, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraph.loop_get_item", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -4988,7 +4989,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_4loop_g
   int __pyx_t_3;
   __Pyx_RefNannySetupContext("loop_get_item", 0);
 
-  /* "pygraph/cython/multidigraph.pyx":35
+  /* "pygraph/cython/multidigraph.pyx":36
  *     def loop_get_item(self, int number_loops):
  *         cdef int i
  *         for i in range(number_loops):             # <<<<<<<<<<<<<<
@@ -5000,7 +5001,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_4loop_g
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pygraph/cython/multidigraph.pyx":36
+    /* "pygraph/cython/multidigraph.pyx":37
  *         cdef int i
  *         for i in range(number_loops):
  *             self._edge_data['a']['b']['99']             # <<<<<<<<<<<<<<
@@ -5010,7 +5011,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_4loop_g
     (void)((((__pyx_v_self->_edge_data[__pyx_k_a])[__pyx_k_b])[__pyx_k_99]));
   }
 
-  /* "pygraph/cython/multidigraph.pyx":31
+  /* "pygraph/cython/multidigraph.pyx":32
  *         return self._edge_data[key]
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
@@ -5025,7 +5026,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_4loop_g
   return __pyx_r;
 }
 
-/* "pygraph/cython/multidigraph.pyx":38
+/* "pygraph/cython/multidigraph.pyx":39
  *             self._edge_data['a']['b']['99']
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
@@ -5075,23 +5076,23 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_number_loops)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 38, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 39, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "loop_set_item") < 0)) __PYX_ERR(0, 38, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "loop_set_item") < 0)) __PYX_ERR(0, 39, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
     }
-    __pyx_v_number_loops = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_number_loops == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 40, __pyx_L3_error)
+    __pyx_v_number_loops = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_number_loops == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 41, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("loop_set_item", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 38, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("loop_set_item", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 39, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraph.loop_set_item", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -5118,7 +5119,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_6loop_s
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("loop_set_item", 0);
 
-  /* "pygraph/cython/multidigraph.pyx":42
+  /* "pygraph/cython/multidigraph.pyx":43
  *     def loop_set_item(self, int number_loops):
  *         cdef int i
  *         cdef unordered_map[string, double] new_map = unordered_map[string, double]()             # <<<<<<<<<<<<<<
@@ -5129,11 +5130,11 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_6loop_s
     __pyx_t_1 = std::unordered_map<std::string,double> ();
   } catch(...) {
     __Pyx_CppExn2PyErr();
-    __PYX_ERR(0, 42, __pyx_L1_error)
+    __PYX_ERR(0, 43, __pyx_L1_error)
   }
   __pyx_v_new_map = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_1);
 
-  /* "pygraph/cython/multidigraph.pyx":43
+  /* "pygraph/cython/multidigraph.pyx":44
  *         cdef int i
  *         cdef unordered_map[string, double] new_map = unordered_map[string, double]()
  *         new_map["99"] = 0.01             # <<<<<<<<<<<<<<
@@ -5142,7 +5143,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_6loop_s
  */
   (__pyx_v_new_map[__pyx_k_99]) = 0.01;
 
-  /* "pygraph/cython/multidigraph.pyx":44
+  /* "pygraph/cython/multidigraph.pyx":45
  *         cdef unordered_map[string, double] new_map = unordered_map[string, double]()
  *         new_map["99"] = 0.01
  *         for i in range(number_loops):             # <<<<<<<<<<<<<<
@@ -5154,17 +5155,17 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_6loop_s
   for (__pyx_t_4 = 0; __pyx_t_4 < __pyx_t_3; __pyx_t_4+=1) {
     __pyx_v_i = __pyx_t_4;
 
-    /* "pygraph/cython/multidigraph.pyx":45
+    /* "pygraph/cython/multidigraph.pyx":46
  *         new_map["99"] = 0.01
  *         for i in range(number_loops):
  *             self._edge_data['a']['b']['99'] = new_map             # <<<<<<<<<<<<<<
  * 
- * 
+ *     def __contains__(self, item):
  */
     (((__pyx_v_self->_edge_data[__pyx_k_a])[__pyx_k_b])[__pyx_k_99]) = __pyx_v_new_map;
   }
 
-  /* "pygraph/cython/multidigraph.pyx":38
+  /* "pygraph/cython/multidigraph.pyx":39
  *             self._edge_data['a']['b']['99']
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
@@ -5184,6 +5185,228 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_6loop_s
   return __pyx_r;
 }
 
+/* "pygraph/cython/multidigraph.pyx":48
+ *             self._edge_data['a']['b']['99'] = new_map
+ * 
+ *     def __contains__(self, item):             # <<<<<<<<<<<<<<
+ *         cdef string key = item.encode()
+ *         c_bool =  self.isin(key)
+ */
+
+/* Python wrapper */
+static int __pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_9__contains__(PyObject *__pyx_v_self, PyObject *__pyx_v_item); /*proto*/
+static int __pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_9__contains__(PyObject *__pyx_v_self, PyObject *__pyx_v_item) {
+  CYTHON_UNUSED PyObject *const *__pyx_kwvalues = __Pyx_KwValues_VARARGS(__pyx_args, __pyx_nargs);
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("__contains__ (wrapper)", 0);
+  __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_8__contains__(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *)__pyx_v_self), ((PyObject *)__pyx_v_item));
+
+  /* function exit code */
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static int __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_8__contains__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, PyObject *__pyx_v_item) {
+  std::string __pyx_v_key;
+  CYTHON_UNUSED bool __pyx_v_c_bool;
+  int __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
+  std::string __pyx_t_5;
+  bool __pyx_t_6;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("__contains__", 0);
+
+  /* "pygraph/cython/multidigraph.pyx":49
+ * 
+ *     def __contains__(self, item):
+ *         cdef string key = item.encode()             # <<<<<<<<<<<<<<
+ *         c_bool =  self.isin(key)
+ * 
+ */
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 49, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  __pyx_t_4 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __pyx_t_4 = 1;
+    }
+  }
+  {
+    PyObject *__pyx_callargs[1] = {__pyx_t_3, };
+    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 49, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 49, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_key = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_5);
+
+  /* "pygraph/cython/multidigraph.pyx":50
+ *     def __contains__(self, item):
+ *         cdef string key = item.encode()
+ *         c_bool =  self.isin(key)             # <<<<<<<<<<<<<<
+ * 
+ *     cdef cbool isin(self, string node):
+ */
+  __pyx_t_6 = ((struct __pyx_vtabstruct_7pygraph_6cython_12multidigraph_MultiDiGraph *)__pyx_v_self->__pyx_vtab)->isin(__pyx_v_self, __pyx_v_key); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L1_error)
+  __pyx_v_c_bool = __pyx_t_6;
+
+  /* "pygraph/cython/multidigraph.pyx":48
+ *             self._edge_data['a']['b']['99'] = new_map
+ * 
+ *     def __contains__(self, item):             # <<<<<<<<<<<<<<
+ *         cdef string key = item.encode()
+ *         c_bool =  self.isin(key)
+ */
+
+  /* function exit code */
+  __pyx_r = 0;
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraph.__contains__", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = -1;
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pygraph/cython/multidigraph.pyx":52
+ *         c_bool =  self.isin(key)
+ * 
+ *     cdef cbool isin(self, string node):             # <<<<<<<<<<<<<<
+ *         if self._edge_data.find(node) != self._edge_data.end():
+ *             return True
+ */
+
+static bool __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph_isin(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, std::string __pyx_v_node) {
+  bool __pyx_r;
+  __Pyx_RefNannyDeclarations
+  int __pyx_t_1;
+  __Pyx_RefNannySetupContext("isin", 0);
+
+  /* "pygraph/cython/multidigraph.pyx":53
+ * 
+ *     cdef cbool isin(self, string node):
+ *         if self._edge_data.find(node) != self._edge_data.end():             # <<<<<<<<<<<<<<
+ *             return True
+ *         else:
+ */
+  __pyx_t_1 = (__pyx_v_self->_edge_data.find(__pyx_v_node) != __pyx_v_self->_edge_data.end());
+  if (__pyx_t_1) {
+
+    /* "pygraph/cython/multidigraph.pyx":54
+ *     cdef cbool isin(self, string node):
+ *         if self._edge_data.find(node) != self._edge_data.end():
+ *             return True             # <<<<<<<<<<<<<<
+ *         else:
+ *             return False
+ */
+    __pyx_r = 1;
+    goto __pyx_L0;
+
+    /* "pygraph/cython/multidigraph.pyx":53
+ * 
+ *     cdef cbool isin(self, string node):
+ *         if self._edge_data.find(node) != self._edge_data.end():             # <<<<<<<<<<<<<<
+ *             return True
+ *         else:
+ */
+  }
+
+  /* "pygraph/cython/multidigraph.pyx":56
+ *             return True
+ *         else:
+ *             return False             # <<<<<<<<<<<<<<
+ * 
+ *     cdef unordered_map[string, double] get_node_data(self, string node_id):
+ */
+  /*else*/ {
+    __pyx_r = 0;
+    goto __pyx_L0;
+  }
+
+  /* "pygraph/cython/multidigraph.pyx":52
+ *         c_bool =  self.isin(key)
+ * 
+ *     cdef cbool isin(self, string node):             # <<<<<<<<<<<<<<
+ *         if self._edge_data.find(node) != self._edge_data.end():
+ *             return True
+ */
+
+  /* function exit code */
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pygraph/cython/multidigraph.pyx":58
+ *             return False
+ * 
+ *     cdef unordered_map[string, double] get_node_data(self, string node_id):             # <<<<<<<<<<<<<<
+ *         return self._node_data.at(node_id)
+ * 
+ */
+
+static std::unordered_map<std::string,double>  __pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph_get_node_data(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, std::string __pyx_v_node_id) {
+  std::unordered_map<std::string,double>  __pyx_r;
+  __Pyx_RefNannyDeclarations
+  __Pyx_FakeReference<std::unordered_map<std::string,double> > __pyx_t_1;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("get_node_data", 0);
+
+  /* "pygraph/cython/multidigraph.pyx":59
+ * 
+ *     cdef unordered_map[string, double] get_node_data(self, string node_id):
+ *         return self._node_data.at(node_id)             # <<<<<<<<<<<<<<
+ * 
+ * 
+ */
+  try {
+    __pyx_t_1 = __pyx_v_self->_node_data.at(__pyx_v_node_id);
+  } catch(...) {
+    __Pyx_CppExn2PyErr();
+    __PYX_ERR(0, 59, __pyx_L1_error)
+  }
+  __pyx_r = __pyx_t_1;
+  goto __pyx_L0;
+
+  /* "pygraph/cython/multidigraph.pyx":58
+ *             return False
+ * 
+ *     cdef unordered_map[string, double] get_node_data(self, string node_id):             # <<<<<<<<<<<<<<
+ *         return self._node_data.at(node_id)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraph.get_node_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_pretend_to_initialize(&__pyx_r);
+  __pyx_L0:;
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
 /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
  *     cdef tuple state
@@ -5191,15 +5414,15 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_6loop_s
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_9__reduce_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_9__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_9__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_9__reduce_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -5216,14 +5439,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   if (unlikely(__pyx_nargs > 0)) {
     __Pyx_RaiseArgtupleInvalid("__reduce_cython__", 1, 0, 0, __pyx_nargs); return NULL;}
   if (unlikely(__pyx_kwds) && __Pyx_NumKwargs_FASTCALL(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__reduce_cython__", 0))) return NULL;
-  __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_8__reduce_cython__(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_10__reduce_cython__(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_8__reduce_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self) {
+static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_10__reduce_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -5449,15 +5672,15 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_8__redu
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__setstate_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_13__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__setstate_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_13__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_13__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_13__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -5512,14 +5735,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_10__setstate_cython__(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *)__pyx_v_self), __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_12__setstate_cython__(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *)__pyx_v_self), __pyx_v___pyx_state);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_10__setstate_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_12__setstate_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -5558,7 +5781,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_12MultiDiGraph_10__set
   return __pyx_r;
 }
 
-/* "pygraph/cython/multidigraph.pyx":50
+/* "pygraph/cython/multidigraph.pyx":64
  * cdef class MultiDiGraphDict:
  * 
  *     def __init__(self, edge_data: dict, node_data: dict = None):             # <<<<<<<<<<<<<<
@@ -5597,19 +5820,19 @@ static int __pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_1__init__
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_edge_data)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
         if (kw_args > 0) {
           PyObject* value = __Pyx_GetKwValue_VARARGS(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_node_data);
           if (value) { values[1] = value; kw_args--; }
-          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 50, __pyx_L3_error)
+          else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 64, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 50, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "__init__") < 0)) __PYX_ERR(0, 64, __pyx_L3_error)
       }
     } else {
       switch (__pyx_nargs) {
@@ -5625,14 +5848,14 @@ static int __pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_1__init__
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 2, __pyx_nargs); __PYX_ERR(0, 50, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("__init__", 0, 1, 2, __pyx_nargs); __PYX_ERR(0, 64, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraphDict.__init__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return -1;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_edge_data), (&PyDict_Type), 0, "edge_data", 1))) __PYX_ERR(0, 50, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_node_data), (&PyDict_Type), 1, "node_data", 1))) __PYX_ERR(0, 50, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_edge_data), (&PyDict_Type), 0, "edge_data", 1))) __PYX_ERR(0, 64, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_node_data), (&PyDict_Type), 1, "node_data", 1))) __PYX_ERR(0, 64, __pyx_L1_error)
   __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict___init__(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *)__pyx_v_self), __pyx_v_edge_data, __pyx_v_node_data);
 
   /* function exit code */
@@ -5663,7 +5886,7 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict___init__(
   __Pyx_RefNannySetupContext("__init__", 0);
   __Pyx_INCREF(__pyx_v_node_data);
 
-  /* "pygraph/cython/multidigraph.pyx":51
+  /* "pygraph/cython/multidigraph.pyx":65
  * 
  *     def __init__(self, edge_data: dict, node_data: dict = None):
  *         if node_data is None:             # <<<<<<<<<<<<<<
@@ -5673,19 +5896,19 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict___init__(
   __pyx_t_1 = (__pyx_v_node_data == ((PyObject*)Py_None));
   if (__pyx_t_1) {
 
-    /* "pygraph/cython/multidigraph.pyx":52
+    /* "pygraph/cython/multidigraph.pyx":66
  *     def __init__(self, edge_data: dict, node_data: dict = None):
  *         if node_data is None:
  *             node_data = {}             # <<<<<<<<<<<<<<
  *         self._node_data = node_data
  *         self._edge_data = {}
  */
-    __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 52, __pyx_L1_error)
+    __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 66, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_2);
     __Pyx_DECREF_SET(__pyx_v_node_data, ((PyObject*)__pyx_t_2));
     __pyx_t_2 = 0;
 
-    /* "pygraph/cython/multidigraph.pyx":51
+    /* "pygraph/cython/multidigraph.pyx":65
  * 
  *     def __init__(self, edge_data: dict, node_data: dict = None):
  *         if node_data is None:             # <<<<<<<<<<<<<<
@@ -5694,7 +5917,7 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict___init__(
  */
   }
 
-  /* "pygraph/cython/multidigraph.pyx":53
+  /* "pygraph/cython/multidigraph.pyx":67
  *         if node_data is None:
  *             node_data = {}
  *         self._node_data = node_data             # <<<<<<<<<<<<<<
@@ -5707,14 +5930,14 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict___init__(
   __Pyx_DECREF(__pyx_v_self->_node_data);
   __pyx_v_self->_node_data = __pyx_v_node_data;
 
-  /* "pygraph/cython/multidigraph.pyx":54
+  /* "pygraph/cython/multidigraph.pyx":68
  *             node_data = {}
  *         self._node_data = node_data
  *         self._edge_data = {}             # <<<<<<<<<<<<<<
  *         for edge_id, data in edge_data.items():
  *             self._push_edge_data(edge_id, data)
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 54, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 68, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_GIVEREF(__pyx_t_2);
   __Pyx_GOTREF(__pyx_v_self->_edge_data);
@@ -5722,7 +5945,7 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict___init__(
   __pyx_v_self->_edge_data = ((PyObject*)__pyx_t_2);
   __pyx_t_2 = 0;
 
-  /* "pygraph/cython/multidigraph.pyx":55
+  /* "pygraph/cython/multidigraph.pyx":69
  *         self._node_data = node_data
  *         self._edge_data = {}
  *         for edge_id, data in edge_data.items():             # <<<<<<<<<<<<<<
@@ -5730,7 +5953,7 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict___init__(
  * 
  */
   __pyx_t_3 = 0;
-  __pyx_t_6 = __Pyx_dict_iterator(__pyx_v_edge_data, 1, __pyx_n_s_items, (&__pyx_t_4), (&__pyx_t_5)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 55, __pyx_L1_error)
+  __pyx_t_6 = __Pyx_dict_iterator(__pyx_v_edge_data, 1, __pyx_n_s_items, (&__pyx_t_4), (&__pyx_t_5)); if (unlikely(!__pyx_t_6)) __PYX_ERR(0, 69, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_6);
   __Pyx_XDECREF(__pyx_t_2);
   __pyx_t_2 = __pyx_t_6;
@@ -5738,7 +5961,7 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict___init__(
   while (1) {
     __pyx_t_8 = __Pyx_dict_iter_next(__pyx_t_2, __pyx_t_4, &__pyx_t_3, &__pyx_t_6, &__pyx_t_7, NULL, __pyx_t_5);
     if (unlikely(__pyx_t_8 == 0)) break;
-    if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 55, __pyx_L1_error)
+    if (unlikely(__pyx_t_8 == -1)) __PYX_ERR(0, 69, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_6);
     __Pyx_GOTREF(__pyx_t_7);
     __Pyx_XDECREF_SET(__pyx_v_edge_id, __pyx_t_6);
@@ -5746,20 +5969,20 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict___init__(
     __Pyx_XDECREF_SET(__pyx_v_data, __pyx_t_7);
     __pyx_t_7 = 0;
 
-    /* "pygraph/cython/multidigraph.pyx":56
+    /* "pygraph/cython/multidigraph.pyx":70
  *         self._edge_data = {}
  *         for edge_id, data in edge_data.items():
  *             self._push_edge_data(edge_id, data)             # <<<<<<<<<<<<<<
  * 
  *     cdef void _push_edge_data(self, tuple edge_id, dict data):
  */
-    if (!(likely(PyTuple_CheckExact(__pyx_v_edge_id))||((__pyx_v_edge_id) == Py_None) || __Pyx_RaiseUnexpectedTypeError("tuple", __pyx_v_edge_id))) __PYX_ERR(0, 56, __pyx_L1_error)
-    if (!(likely(PyDict_CheckExact(__pyx_v_data))||((__pyx_v_data) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_v_data))) __PYX_ERR(0, 56, __pyx_L1_error)
-    ((struct __pyx_vtabstruct_7pygraph_6cython_12multidigraph_MultiDiGraphDict *)__pyx_v_self->__pyx_vtab)->_push_edge_data(__pyx_v_self, ((PyObject*)__pyx_v_edge_id), ((PyObject*)__pyx_v_data)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 56, __pyx_L1_error)
+    if (!(likely(PyTuple_CheckExact(__pyx_v_edge_id))||((__pyx_v_edge_id) == Py_None) || __Pyx_RaiseUnexpectedTypeError("tuple", __pyx_v_edge_id))) __PYX_ERR(0, 70, __pyx_L1_error)
+    if (!(likely(PyDict_CheckExact(__pyx_v_data))||((__pyx_v_data) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_v_data))) __PYX_ERR(0, 70, __pyx_L1_error)
+    ((struct __pyx_vtabstruct_7pygraph_6cython_12multidigraph_MultiDiGraphDict *)__pyx_v_self->__pyx_vtab)->_push_edge_data(__pyx_v_self, ((PyObject*)__pyx_v_edge_id), ((PyObject*)__pyx_v_data)); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 70, __pyx_L1_error)
   }
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pygraph/cython/multidigraph.pyx":50
+  /* "pygraph/cython/multidigraph.pyx":64
  * cdef class MultiDiGraphDict:
  * 
  *     def __init__(self, edge_data: dict, node_data: dict = None):             # <<<<<<<<<<<<<<
@@ -5784,7 +6007,7 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict___init__(
   return __pyx_r;
 }
 
-/* "pygraph/cython/multidigraph.pyx":58
+/* "pygraph/cython/multidigraph.pyx":72
  *             self._push_edge_data(edge_id, data)
  * 
  *     cdef void _push_edge_data(self, tuple edge_id, dict data):             # <<<<<<<<<<<<<<
@@ -5803,7 +6026,7 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("_push_edge_data", 0);
 
-  /* "pygraph/cython/multidigraph.pyx":59
+  /* "pygraph/cython/multidigraph.pyx":73
  * 
  *     cdef void _push_edge_data(self, tuple edge_id, dict data):
  *         if edge_id[0] not in self._node_data:             # <<<<<<<<<<<<<<
@@ -5812,42 +6035,42 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
  */
   if (unlikely(__pyx_v_edge_id == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 59, __pyx_L1_error)
+    __PYX_ERR(0, 73, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__pyx_v_self->_node_data == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 59, __pyx_L1_error)
+    __PYX_ERR(0, 73, __pyx_L1_error)
   }
-  __pyx_t_2 = (__Pyx_PyDict_ContainsTF(__pyx_t_1, __pyx_v_self->_node_data, Py_NE)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 59, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyDict_ContainsTF(__pyx_t_1, __pyx_v_self->_node_data, Py_NE)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 73, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "pygraph/cython/multidigraph.pyx":60
+    /* "pygraph/cython/multidigraph.pyx":74
  *     cdef void _push_edge_data(self, tuple edge_id, dict data):
  *         if edge_id[0] not in self._node_data:
  *             self._node_data[edge_id[0]] = {}             # <<<<<<<<<<<<<<
  *         if edge_id[1] not in self._node_data:
  *             self._node_data[edge_id[1]] = {}
  */
-    __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (unlikely(__pyx_v_self->_node_data == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 60, __pyx_L1_error)
+      __PYX_ERR(0, 74, __pyx_L1_error)
     }
     if (unlikely(__pyx_v_edge_id == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 60, __pyx_L1_error)
+      __PYX_ERR(0, 74, __pyx_L1_error)
     }
-    __pyx_t_3 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 60, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (unlikely((PyDict_SetItem(__pyx_v_self->_node_data, __pyx_t_3, __pyx_t_1) < 0))) __PYX_ERR(0, 60, __pyx_L1_error)
+    if (unlikely((PyDict_SetItem(__pyx_v_self->_node_data, __pyx_t_3, __pyx_t_1) < 0))) __PYX_ERR(0, 74, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pygraph/cython/multidigraph.pyx":59
+    /* "pygraph/cython/multidigraph.pyx":73
  * 
  *     cdef void _push_edge_data(self, tuple edge_id, dict data):
  *         if edge_id[0] not in self._node_data:             # <<<<<<<<<<<<<<
@@ -5856,7 +6079,7 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
  */
   }
 
-  /* "pygraph/cython/multidigraph.pyx":61
+  /* "pygraph/cython/multidigraph.pyx":75
  *         if edge_id[0] not in self._node_data:
  *             self._node_data[edge_id[0]] = {}
  *         if edge_id[1] not in self._node_data:             # <<<<<<<<<<<<<<
@@ -5865,42 +6088,42 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
  */
   if (unlikely(__pyx_v_edge_id == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 61, __pyx_L1_error)
+    __PYX_ERR(0, 75, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__pyx_v_self->_node_data == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 61, __pyx_L1_error)
+    __PYX_ERR(0, 75, __pyx_L1_error)
   }
-  __pyx_t_2 = (__Pyx_PyDict_ContainsTF(__pyx_t_1, __pyx_v_self->_node_data, Py_NE)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 61, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyDict_ContainsTF(__pyx_t_1, __pyx_v_self->_node_data, Py_NE)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 75, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "pygraph/cython/multidigraph.pyx":62
+    /* "pygraph/cython/multidigraph.pyx":76
  *             self._node_data[edge_id[0]] = {}
  *         if edge_id[1] not in self._node_data:
  *             self._node_data[edge_id[1]] = {}             # <<<<<<<<<<<<<<
  * 
  *         if edge_id[0] not in self._edge_data:
  */
-    __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 76, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (unlikely(__pyx_v_self->_node_data == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 62, __pyx_L1_error)
+      __PYX_ERR(0, 76, __pyx_L1_error)
     }
     if (unlikely(__pyx_v_edge_id == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 62, __pyx_L1_error)
+      __PYX_ERR(0, 76, __pyx_L1_error)
     }
-    __pyx_t_3 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 62, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 76, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (unlikely((PyDict_SetItem(__pyx_v_self->_node_data, __pyx_t_3, __pyx_t_1) < 0))) __PYX_ERR(0, 62, __pyx_L1_error)
+    if (unlikely((PyDict_SetItem(__pyx_v_self->_node_data, __pyx_t_3, __pyx_t_1) < 0))) __PYX_ERR(0, 76, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pygraph/cython/multidigraph.pyx":61
+    /* "pygraph/cython/multidigraph.pyx":75
  *         if edge_id[0] not in self._node_data:
  *             self._node_data[edge_id[0]] = {}
  *         if edge_id[1] not in self._node_data:             # <<<<<<<<<<<<<<
@@ -5909,7 +6132,7 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
  */
   }
 
-  /* "pygraph/cython/multidigraph.pyx":64
+  /* "pygraph/cython/multidigraph.pyx":78
  *             self._node_data[edge_id[1]] = {}
  * 
  *         if edge_id[0] not in self._edge_data:             # <<<<<<<<<<<<<<
@@ -5918,42 +6141,42 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
  */
   if (unlikely(__pyx_v_edge_id == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 64, __pyx_L1_error)
+    __PYX_ERR(0, 78, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__pyx_v_self->_edge_data == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 64, __pyx_L1_error)
+    __PYX_ERR(0, 78, __pyx_L1_error)
   }
-  __pyx_t_2 = (__Pyx_PyDict_ContainsTF(__pyx_t_1, __pyx_v_self->_edge_data, Py_NE)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 64, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PyDict_ContainsTF(__pyx_t_1, __pyx_v_self->_edge_data, Py_NE)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 78, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   if (__pyx_t_2) {
 
-    /* "pygraph/cython/multidigraph.pyx":65
+    /* "pygraph/cython/multidigraph.pyx":79
  * 
  *         if edge_id[0] not in self._edge_data:
  *             self._edge_data[edge_id[0]] = {}             # <<<<<<<<<<<<<<
  *         if edge_id[1] not in self._edge_data[edge_id[0]]:
  *             self._edge_data[edge_id[0]][edge_id[1]] = {}
  */
-    __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 79, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     if (unlikely(__pyx_v_self->_edge_data == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 65, __pyx_L1_error)
+      __PYX_ERR(0, 79, __pyx_L1_error)
     }
     if (unlikely(__pyx_v_edge_id == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 65, __pyx_L1_error)
+      __PYX_ERR(0, 79, __pyx_L1_error)
     }
-    __pyx_t_3 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 65, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 79, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
-    if (unlikely((PyDict_SetItem(__pyx_v_self->_edge_data, __pyx_t_3, __pyx_t_1) < 0))) __PYX_ERR(0, 65, __pyx_L1_error)
+    if (unlikely((PyDict_SetItem(__pyx_v_self->_edge_data, __pyx_t_3, __pyx_t_1) < 0))) __PYX_ERR(0, 79, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-    /* "pygraph/cython/multidigraph.pyx":64
+    /* "pygraph/cython/multidigraph.pyx":78
  *             self._node_data[edge_id[1]] = {}
  * 
  *         if edge_id[0] not in self._edge_data:             # <<<<<<<<<<<<<<
@@ -5962,7 +6185,7 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
  */
   }
 
-  /* "pygraph/cython/multidigraph.pyx":66
+  /* "pygraph/cython/multidigraph.pyx":80
  *         if edge_id[0] not in self._edge_data:
  *             self._edge_data[edge_id[0]] = {}
  *         if edge_id[1] not in self._edge_data[edge_id[0]]:             # <<<<<<<<<<<<<<
@@ -5971,62 +6194,62 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
  */
   if (unlikely(__pyx_v_edge_id == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 66, __pyx_L1_error)
+    __PYX_ERR(0, 80, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (unlikely(__pyx_v_self->_edge_data == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 66, __pyx_L1_error)
+    __PYX_ERR(0, 80, __pyx_L1_error)
   }
   if (unlikely(__pyx_v_edge_id == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 66, __pyx_L1_error)
+    __PYX_ERR(0, 80, __pyx_L1_error)
   }
-  __pyx_t_3 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
-  __pyx_t_4 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_t_3); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
-  __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_t_1, __pyx_t_4, Py_NE)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 66, __pyx_L1_error)
+  __pyx_t_2 = (__Pyx_PySequence_ContainsTF(__pyx_t_1, __pyx_t_4, Py_NE)); if (unlikely((__pyx_t_2 < 0))) __PYX_ERR(0, 80, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (__pyx_t_2) {
 
-    /* "pygraph/cython/multidigraph.pyx":67
+    /* "pygraph/cython/multidigraph.pyx":81
  *             self._edge_data[edge_id[0]] = {}
  *         if edge_id[1] not in self._edge_data[edge_id[0]]:
  *             self._edge_data[edge_id[0]][edge_id[1]] = {}             # <<<<<<<<<<<<<<
  *         self._edge_data[edge_id[0]][edge_id[1]][edge_id[2]] = data
  * 
  */
-    __pyx_t_4 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 67, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 81, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     if (unlikely(__pyx_v_self->_edge_data == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 67, __pyx_L1_error)
+      __PYX_ERR(0, 81, __pyx_L1_error)
     }
     if (unlikely(__pyx_v_edge_id == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 67, __pyx_L1_error)
+      __PYX_ERR(0, 81, __pyx_L1_error)
     }
-    __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 67, __pyx_L1_error)
+    __pyx_t_3 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_t_1); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 81, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_3);
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     if (unlikely(__pyx_v_edge_id == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 67, __pyx_L1_error)
+      __PYX_ERR(0, 81, __pyx_L1_error)
     }
-    __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 67, __pyx_L1_error)
+    __pyx_t_1 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 81, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
-    if (unlikely((PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_t_4) < 0))) __PYX_ERR(0, 67, __pyx_L1_error)
+    if (unlikely((PyObject_SetItem(__pyx_t_3, __pyx_t_1, __pyx_t_4) < 0))) __PYX_ERR(0, 81, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
     __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-    /* "pygraph/cython/multidigraph.pyx":66
+    /* "pygraph/cython/multidigraph.pyx":80
  *         if edge_id[0] not in self._edge_data:
  *             self._edge_data[edge_id[0]] = {}
  *         if edge_id[1] not in self._edge_data[edge_id[0]]:             # <<<<<<<<<<<<<<
@@ -6035,7 +6258,7 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
  */
   }
 
-  /* "pygraph/cython/multidigraph.pyx":68
+  /* "pygraph/cython/multidigraph.pyx":82
  *         if edge_id[1] not in self._edge_data[edge_id[0]]:
  *             self._edge_data[edge_id[0]][edge_id[1]] = {}
  *         self._edge_data[edge_id[0]][edge_id[1]][edge_id[2]] = data             # <<<<<<<<<<<<<<
@@ -6044,38 +6267,38 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
  */
   if (unlikely(__pyx_v_self->_edge_data == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 68, __pyx_L1_error)
+    __PYX_ERR(0, 82, __pyx_L1_error)
   }
   if (unlikely(__pyx_v_edge_id == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 68, __pyx_L1_error)
+    __PYX_ERR(0, 82, __pyx_L1_error)
   }
-  __pyx_t_4 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 0, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_t_4); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (unlikely(__pyx_v_edge_id == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 68, __pyx_L1_error)
+    __PYX_ERR(0, 82, __pyx_L1_error)
   }
-  __pyx_t_4 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 1, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_PyObject_GetItem(__pyx_t_1, __pyx_t_4); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_3);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   if (unlikely(__pyx_v_edge_id == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 68, __pyx_L1_error)
+    __PYX_ERR(0, 82, __pyx_L1_error)
   }
-  __pyx_t_4 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 68, __pyx_L1_error)
+  __pyx_t_4 = __Pyx_GetItemInt_Tuple(__pyx_v_edge_id, 2, long, 1, __Pyx_PyInt_From_long, 0, 0, 1); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_4);
-  if (unlikely((PyObject_SetItem(__pyx_t_3, __pyx_t_4, __pyx_v_data) < 0))) __PYX_ERR(0, 68, __pyx_L1_error)
+  if (unlikely((PyObject_SetItem(__pyx_t_3, __pyx_t_4, __pyx_v_data) < 0))) __PYX_ERR(0, 82, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
   __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
 
-  /* "pygraph/cython/multidigraph.pyx":58
+  /* "pygraph/cython/multidigraph.pyx":72
  *             self._push_edge_data(edge_id, data)
  * 
  *     cdef void _push_edge_data(self, tuple edge_id, dict data):             # <<<<<<<<<<<<<<
@@ -6094,7 +6317,7 @@ static void __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edg
   __Pyx_RefNannyFinishContext();
 }
 
-/* "pygraph/cython/multidigraph.pyx":70
+/* "pygraph/cython/multidigraph.pyx":84
  *         self._edge_data[edge_id[0]][edge_id[1]][edge_id[2]] = data
  * 
  *     def __getitem__(self, item):             # <<<<<<<<<<<<<<
@@ -6130,14 +6353,14 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_2__
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__getitem__", 0);
 
-  /* "pygraph/cython/multidigraph.pyx":71
+  /* "pygraph/cython/multidigraph.pyx":85
  * 
  *     def __getitem__(self, item):
  *         cdef string key = item.encode()             # <<<<<<<<<<<<<<
  *         return self._edge_data[key]
  * 
  */
-  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __pyx_t_3 = NULL;
   __pyx_t_4 = 0;
@@ -6155,15 +6378,15 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_2__
     PyObject *__pyx_callargs[1] = {__pyx_t_3, };
     __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
     __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
-    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 71, __pyx_L1_error)
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 85, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_1);
     __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   }
-  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 71, __pyx_L1_error)
+  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 85, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_v_key = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_5);
 
-  /* "pygraph/cython/multidigraph.pyx":72
+  /* "pygraph/cython/multidigraph.pyx":86
  *     def __getitem__(self, item):
  *         cdef string key = item.encode()
  *         return self._edge_data[key]             # <<<<<<<<<<<<<<
@@ -6173,18 +6396,18 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_2__
   __Pyx_XDECREF(__pyx_r);
   if (unlikely(__pyx_v_self->_edge_data == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 72, __pyx_L1_error)
+    __PYX_ERR(0, 86, __pyx_L1_error)
   }
-  __pyx_t_1 = __pyx_convert_PyUnicode_string_to_py_std__in_string(__pyx_v_key); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_1 = __pyx_convert_PyUnicode_string_to_py_std__in_string(__pyx_v_key); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 72, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_t_1); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 86, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
   __pyx_r = __pyx_t_2;
   __pyx_t_2 = 0;
   goto __pyx_L0;
 
-  /* "pygraph/cython/multidigraph.pyx":70
+  /* "pygraph/cython/multidigraph.pyx":84
  *         self._edge_data[edge_id[0]][edge_id[1]][edge_id[2]] = data
  * 
  *     def __getitem__(self, item):             # <<<<<<<<<<<<<<
@@ -6205,12 +6428,12 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_2__
   return __pyx_r;
 }
 
-/* "pygraph/cython/multidigraph.pyx":74
+/* "pygraph/cython/multidigraph.pyx":88
  *         return self._edge_data[key]
  * 
  *     def __contains__(self, item):             # <<<<<<<<<<<<<<
- *         return item in self._edge_data
- * 
+ *         cdef string key = item.encode()
+ *         return self.isin(key)
  */
 
 /* Python wrapper */
@@ -6228,39 +6451,77 @@ static int __pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_5__contai
 }
 
 static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_4__contains__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, PyObject *__pyx_v_item) {
+  std::string __pyx_v_key;
   int __pyx_r;
   __Pyx_RefNannyDeclarations
-  int __pyx_t_1;
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
+  std::string __pyx_t_5;
+  bool __pyx_t_6;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("__contains__", 0);
 
-  /* "pygraph/cython/multidigraph.pyx":75
+  /* "pygraph/cython/multidigraph.pyx":89
  * 
  *     def __contains__(self, item):
- *         return item in self._edge_data             # <<<<<<<<<<<<<<
+ *         cdef string key = item.encode()             # <<<<<<<<<<<<<<
+ *         return self.isin(key)
  * 
- *     @cython.boundscheck(False)  # Deactivate bounds checking
  */
-  if (unlikely(__pyx_v_self->_edge_data == Py_None)) {
-    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
-    __PYX_ERR(0, 75, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyObject_GetAttrStr(__pyx_v_item, __pyx_n_s_encode); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 89, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = NULL;
+  __pyx_t_4 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_2))) {
+    __pyx_t_3 = PyMethod_GET_SELF(__pyx_t_2);
+    if (likely(__pyx_t_3)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_2);
+      __Pyx_INCREF(__pyx_t_3);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_2, function);
+      __pyx_t_4 = 1;
+    }
   }
-  __pyx_t_1 = (__Pyx_PyDict_ContainsTF(__pyx_v_item, __pyx_v_self->_edge_data, Py_EQ)); if (unlikely((__pyx_t_1 < 0))) __PYX_ERR(0, 75, __pyx_L1_error)
-  __pyx_r = __pyx_t_1;
+  {
+    PyObject *__pyx_callargs[1] = {__pyx_t_3, };
+    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_2, __pyx_callargs+1-__pyx_t_4, 0+__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_3); __pyx_t_3 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  }
+  __pyx_t_5 = __pyx_convert_string_from_py_std__in_string(__pyx_t_1); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 89, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
+  __pyx_v_key = __PYX_STD_MOVE_IF_SUPPORTED(__pyx_t_5);
+
+  /* "pygraph/cython/multidigraph.pyx":90
+ *     def __contains__(self, item):
+ *         cdef string key = item.encode()
+ *         return self.isin(key)             # <<<<<<<<<<<<<<
+ * 
+ *     cdef cbool isin(self, string node):
+ */
+  __pyx_t_6 = ((struct __pyx_vtabstruct_7pygraph_6cython_12multidigraph_MultiDiGraphDict *)__pyx_v_self->__pyx_vtab)->isin(__pyx_v_self, __pyx_v_key); if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 90, __pyx_L1_error)
+  __pyx_r = __pyx_t_6;
   goto __pyx_L0;
 
-  /* "pygraph/cython/multidigraph.pyx":74
+  /* "pygraph/cython/multidigraph.pyx":88
  *         return self._edge_data[key]
  * 
  *     def __contains__(self, item):             # <<<<<<<<<<<<<<
- *         return item in self._edge_data
- * 
+ *         cdef string key = item.encode()
+ *         return self.isin(key)
  */
 
   /* function exit code */
   __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraphDict.__contains__", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __pyx_r = -1;
   __pyx_L0:;
@@ -6268,8 +6529,101 @@ static int __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_4__contai
   return __pyx_r;
 }
 
-/* "pygraph/cython/multidigraph.pyx":77
- *         return item in self._edge_data
+/* "pygraph/cython/multidigraph.pyx":92
+ *         return self.isin(key)
+ * 
+ *     cdef cbool isin(self, string node):             # <<<<<<<<<<<<<<
+ *         py_string = node.decode('utf-8')
+ *         return py_string in self._edge_data
+ */
+
+static bool __pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_isin(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, std::string __pyx_v_node) {
+  PyObject *__pyx_v_py_string = NULL;
+  bool __pyx_r;
+  __Pyx_RefNannyDeclarations
+  PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
+  int __pyx_t_5;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("isin", 0);
+
+  /* "pygraph/cython/multidigraph.pyx":93
+ * 
+ *     cdef cbool isin(self, string node):
+ *         py_string = node.decode('utf-8')             # <<<<<<<<<<<<<<
+ *         return py_string in self._edge_data
+ * 
+ */
+  __pyx_t_2 = __pyx_convert_PyUnicode_string_to_py_std__in_string(__pyx_v_node); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_decode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 93, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  __pyx_t_4 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __pyx_t_4 = 1;
+    }
+  }
+  {
+    PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_kp_s_utf_8};
+    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 93, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  }
+  __pyx_v_py_string = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "pygraph/cython/multidigraph.pyx":94
+ *     cdef cbool isin(self, string node):
+ *         py_string = node.decode('utf-8')
+ *         return py_string in self._edge_data             # <<<<<<<<<<<<<<
+ * 
+ *     @cython.boundscheck(False)  # Deactivate bounds checking
+ */
+  if (unlikely(__pyx_v_self->_edge_data == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "'NoneType' object is not iterable");
+    __PYX_ERR(0, 94, __pyx_L1_error)
+  }
+  __pyx_t_5 = (__Pyx_PyDict_ContainsTF(__pyx_v_py_string, __pyx_v_self->_edge_data, Py_EQ)); if (unlikely((__pyx_t_5 < 0))) __PYX_ERR(0, 94, __pyx_L1_error)
+  __pyx_r = __pyx_t_5;
+  goto __pyx_L0;
+
+  /* "pygraph/cython/multidigraph.pyx":92
+ *         return self.isin(key)
+ * 
+ *     cdef cbool isin(self, string node):             # <<<<<<<<<<<<<<
+ *         py_string = node.decode('utf-8')
+ *         return py_string in self._edge_data
+ */
+
+  /* function exit code */
+  __pyx_L1_error:;
+  __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
+  __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraphDict.isin", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = 0;
+  __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_py_string);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pygraph/cython/multidigraph.pyx":96
+ *         return py_string in self._edge_data
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
  *     @cython.wraparound(False)  # Deactivate negative indexing.
@@ -6318,23 +6672,23 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_number_loops)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 77, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 96, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "loop_get_item") < 0)) __PYX_ERR(0, 77, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "loop_get_item") < 0)) __PYX_ERR(0, 96, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
     }
-    __pyx_v_number_loops = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_number_loops == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 79, __pyx_L3_error)
+    __pyx_v_number_loops = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_number_loops == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 98, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("loop_get_item", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 77, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("loop_get_item", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 96, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraphDict.loop_get_item", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -6361,7 +6715,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_6lo
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("loop_get_item", 0);
 
-  /* "pygraph/cython/multidigraph.pyx":81
+  /* "pygraph/cython/multidigraph.pyx":100
  *     def loop_get_item(self, int number_loops):
  *         cdef int i
  *         for i in range(number_loops):             # <<<<<<<<<<<<<<
@@ -6373,7 +6727,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_6lo
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pygraph/cython/multidigraph.pyx":82
+    /* "pygraph/cython/multidigraph.pyx":101
  *         cdef int i
  *         for i in range(number_loops):
  *             self._edge_data['a']['b']['99']             # <<<<<<<<<<<<<<
@@ -6382,21 +6736,21 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_6lo
  */
     if (unlikely(__pyx_v_self->_edge_data == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 82, __pyx_L1_error)
+      __PYX_ERR(0, 101, __pyx_L1_error)
     }
-    __pyx_t_4 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_n_s_a); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_n_s_a); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 101, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_b); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_b); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 101, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_kp_s_99); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 82, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyObject_Dict_GetItem(__pyx_t_5, __pyx_kp_s_99); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 101, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
   }
 
-  /* "pygraph/cython/multidigraph.pyx":77
- *         return item in self._edge_data
+  /* "pygraph/cython/multidigraph.pyx":96
+ *         return py_string in self._edge_data
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
  *     @cython.wraparound(False)  # Deactivate negative indexing.
@@ -6417,7 +6771,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_6lo
   return __pyx_r;
 }
 
-/* "pygraph/cython/multidigraph.pyx":84
+/* "pygraph/cython/multidigraph.pyx":103
  *             self._edge_data['a']['b']['99']
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
@@ -6467,23 +6821,23 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       switch (__pyx_nargs) {
         case  0:
         if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_number_loops)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 84, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 103, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "loop_set_item") < 0)) __PYX_ERR(0, 84, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "loop_set_item") < 0)) __PYX_ERR(0, 103, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 1)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
     }
-    __pyx_v_number_loops = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_number_loops == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 86, __pyx_L3_error)
+    __pyx_v_number_loops = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_number_loops == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 105, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("loop_set_item", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 84, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("loop_set_item", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 103, __pyx_L3_error)
   __pyx_L3_error:;
   __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraphDict.loop_set_item", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
@@ -6510,7 +6864,7 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_8lo
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("loop_set_item", 0);
 
-  /* "pygraph/cython/multidigraph.pyx":88
+  /* "pygraph/cython/multidigraph.pyx":107
  *     def loop_set_item(self, int number_loops):
  *         cdef int i
  *         for i in range(number_loops):             # <<<<<<<<<<<<<<
@@ -6522,27 +6876,27 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_8lo
   for (__pyx_t_3 = 0; __pyx_t_3 < __pyx_t_2; __pyx_t_3+=1) {
     __pyx_v_i = __pyx_t_3;
 
-    /* "pygraph/cython/multidigraph.pyx":89
+    /* "pygraph/cython/multidigraph.pyx":108
  *         cdef int i
  *         for i in range(number_loops):
  *             self._edge_data['a']['b']['99'] = 0.01             # <<<<<<<<<<<<<<
  * 
- *     def get_node_data(self, node_id):
+ *     cdef dict get_node_data(self, string node_id):
  */
     if (unlikely(__pyx_v_self->_edge_data == Py_None)) {
       PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-      __PYX_ERR(0, 89, __pyx_L1_error)
+      __PYX_ERR(0, 108, __pyx_L1_error)
     }
-    __pyx_t_4 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_n_s_a); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __pyx_t_4 = __Pyx_PyDict_GetItem(__pyx_v_self->_edge_data, __pyx_n_s_a); if (unlikely(!__pyx_t_4)) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_4);
-    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_b); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 89, __pyx_L1_error)
+    __pyx_t_5 = __Pyx_PyObject_Dict_GetItem(__pyx_t_4, __pyx_n_s_b); if (unlikely(!__pyx_t_5)) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_GOTREF(__pyx_t_5);
     __Pyx_DECREF(__pyx_t_4); __pyx_t_4 = 0;
-    if (unlikely((PyObject_SetItem(__pyx_t_5, __pyx_kp_s_99, __pyx_float_0_01) < 0))) __PYX_ERR(0, 89, __pyx_L1_error)
+    if (unlikely((PyObject_SetItem(__pyx_t_5, __pyx_kp_s_99, __pyx_float_0_01) < 0))) __PYX_ERR(0, 108, __pyx_L1_error)
     __Pyx_DECREF(__pyx_t_5); __pyx_t_5 = 0;
   }
 
-  /* "pygraph/cython/multidigraph.pyx":84
+  /* "pygraph/cython/multidigraph.pyx":103
  *             self._edge_data['a']['b']['99']
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
@@ -6564,122 +6918,95 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_8lo
   return __pyx_r;
 }
 
-/* "pygraph/cython/multidigraph.pyx":91
+/* "pygraph/cython/multidigraph.pyx":110
  *             self._edge_data['a']['b']['99'] = 0.01
  * 
- *     def get_node_data(self, node_id):             # <<<<<<<<<<<<<<
- *         return self._node_data[node_id]
+ *     cdef dict get_node_data(self, string node_id):             # <<<<<<<<<<<<<<
+ *         # convert cpp string to python string
+ *         py_string = node_id.decode('utf-8')
  */
 
-/* Python wrapper */
-static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11get_node_data(PyObject *__pyx_v_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-); /*proto*/
-static PyMethodDef __pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11get_node_data = {"get_node_data", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11get_node_data, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11get_node_data(PyObject *__pyx_v_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-) {
-  PyObject *__pyx_v_node_id = 0;
-  #if !CYTHON_METH_FASTCALL
-  CYTHON_UNUSED const Py_ssize_t __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
-  #endif
-  CYTHON_UNUSED PyObject *const *__pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("get_node_data (wrapper)", 0);
-  {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_node_id,0};
-    PyObject* values[1] = {0};
-    if (__pyx_kwds) {
-      Py_ssize_t kw_args;
-      switch (__pyx_nargs) {
-        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
-      switch (__pyx_nargs) {
-        case  0:
-        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_node_id)) != 0)) kw_args--;
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(0, 91, __pyx_L3_error)
-        else goto __pyx_L5_argtuple_error;
-      }
-      if (unlikely(kw_args > 0)) {
-        const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "get_node_data") < 0)) __PYX_ERR(0, 91, __pyx_L3_error)
-      }
-    } else if (unlikely(__pyx_nargs != 1)) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-    }
-    __pyx_v_node_id = values[0];
-  }
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("get_node_data", 1, 1, 1, __pyx_nargs); __PYX_ERR(0, 91, __pyx_L3_error)
-  __pyx_L3_error:;
-  __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraphDict.get_node_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_10get_node_data(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *)__pyx_v_self), __pyx_v_node_id);
-
-  /* function exit code */
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_10get_node_data(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, PyObject *__pyx_v_node_id) {
+static PyObject *__pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_get_node_data(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, std::string __pyx_v_node_id) {
+  PyObject *__pyx_v_py_string = NULL;
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
+  PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
+  int __pyx_t_4;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   __Pyx_RefNannySetupContext("get_node_data", 0);
 
-  /* "pygraph/cython/multidigraph.pyx":92
- * 
- *     def get_node_data(self, node_id):
- *         return self._node_data[node_id]             # <<<<<<<<<<<<<<
+  /* "pygraph/cython/multidigraph.pyx":112
+ *     cdef dict get_node_data(self, string node_id):
+ *         # convert cpp string to python string
+ *         py_string = node_id.decode('utf-8')             # <<<<<<<<<<<<<<
+ *         return self._node_data[py_string]
+ */
+  __pyx_t_2 = __pyx_convert_PyUnicode_string_to_py_std__in_string(__pyx_v_node_id); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  __pyx_t_3 = __Pyx_PyObject_GetAttrStr(__pyx_t_2, __pyx_n_s_decode); if (unlikely(!__pyx_t_3)) __PYX_ERR(0, 112, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_2 = NULL;
+  __pyx_t_4 = 0;
+  if (CYTHON_UNPACK_METHODS && likely(PyMethod_Check(__pyx_t_3))) {
+    __pyx_t_2 = PyMethod_GET_SELF(__pyx_t_3);
+    if (likely(__pyx_t_2)) {
+      PyObject* function = PyMethod_GET_FUNCTION(__pyx_t_3);
+      __Pyx_INCREF(__pyx_t_2);
+      __Pyx_INCREF(function);
+      __Pyx_DECREF_SET(__pyx_t_3, function);
+      __pyx_t_4 = 1;
+    }
+  }
+  {
+    PyObject *__pyx_callargs[2] = {__pyx_t_2, __pyx_kp_s_utf_8};
+    __pyx_t_1 = __Pyx_PyObject_FastCall(__pyx_t_3, __pyx_callargs+1-__pyx_t_4, 1+__pyx_t_4);
+    __Pyx_XDECREF(__pyx_t_2); __pyx_t_2 = 0;
+    if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 112, __pyx_L1_error)
+    __Pyx_GOTREF(__pyx_t_1);
+    __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
+  }
+  __pyx_v_py_string = __pyx_t_1;
+  __pyx_t_1 = 0;
+
+  /* "pygraph/cython/multidigraph.pyx":113
+ *         # convert cpp string to python string
+ *         py_string = node_id.decode('utf-8')
+ *         return self._node_data[py_string]             # <<<<<<<<<<<<<<
  */
   __Pyx_XDECREF(__pyx_r);
   if (unlikely(__pyx_v_self->_node_data == Py_None)) {
     PyErr_SetString(PyExc_TypeError, "'NoneType' object is not subscriptable");
-    __PYX_ERR(0, 92, __pyx_L1_error)
+    __PYX_ERR(0, 113, __pyx_L1_error)
   }
-  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_self->_node_data, __pyx_v_node_id); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 92, __pyx_L1_error)
+  __pyx_t_1 = __Pyx_PyDict_GetItem(__pyx_v_self->_node_data, __pyx_v_py_string); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 113, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  __pyx_r = __pyx_t_1;
+  if (!(likely(PyDict_CheckExact(__pyx_t_1))||((__pyx_t_1) == Py_None) || __Pyx_RaiseUnexpectedTypeError("dict", __pyx_t_1))) __PYX_ERR(0, 113, __pyx_L1_error)
+  __pyx_r = ((PyObject*)__pyx_t_1);
   __pyx_t_1 = 0;
   goto __pyx_L0;
 
-  /* "pygraph/cython/multidigraph.pyx":91
+  /* "pygraph/cython/multidigraph.pyx":110
  *             self._edge_data['a']['b']['99'] = 0.01
  * 
- *     def get_node_data(self, node_id):             # <<<<<<<<<<<<<<
- *         return self._node_data[node_id]
+ *     cdef dict get_node_data(self, string node_id):             # <<<<<<<<<<<<<<
+ *         # convert cpp string to python string
+ *         py_string = node_id.decode('utf-8')
  */
 
   /* function exit code */
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_1);
+  __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   __Pyx_AddTraceback("pygraph.cython.multidigraph.MultiDiGraphDict.get_node_data", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __pyx_r = NULL;
+  __pyx_r = 0;
   __pyx_L0:;
+  __Pyx_XDECREF(__pyx_v_py_string);
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -6692,15 +7019,15 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_10g
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__reduce_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__reduce_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11__reduce_cython__ = {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11__reduce_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -6717,14 +7044,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   if (unlikely(__pyx_nargs > 0)) {
     __Pyx_RaiseArgtupleInvalid("__reduce_cython__", 1, 0, 0, __pyx_nargs); return NULL;}
   if (unlikely(__pyx_kwds) && __Pyx_NumKwargs_FASTCALL(__pyx_kwds) && unlikely(!__Pyx_CheckKeywordStrings(__pyx_kwds, "__reduce_cython__", 0))) return NULL;
-  __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_12__reduce_cython__(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *)__pyx_v_self));
+  __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_10__reduce_cython__(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *)__pyx_v_self));
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_12__reduce_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self) {
+static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_10__reduce_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self) {
   PyObject *__pyx_v_state = 0;
   PyObject *__pyx_v__dict = 0;
   int __pyx_v_use_setstate;
@@ -6956,15 +7283,15 @@ static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_12_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_15__setstate_cython__(PyObject *__pyx_v_self, 
+static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_15__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_15__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_15__setstate_cython__(PyObject *__pyx_v_self, 
+static PyMethodDef __pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__setstate_cython__ = {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__setstate_cython__(PyObject *__pyx_v_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -7019,14 +7346,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_14__setstate_cython__(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *)__pyx_v_self), __pyx_v___pyx_state);
+  __pyx_r = __pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_12__setstate_cython__(((struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *)__pyx_v_self), __pyx_v___pyx_state);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_14__setstate_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
+static PyObject *__pyx_pf_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_12__setstate_cython__(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *__pyx_v_self, PyObject *__pyx_v___pyx_state) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   PyObject *__pyx_t_1 = NULL;
@@ -7974,9 +8301,8 @@ static PyObject *__pyx_sq_item_7pygraph_6cython_12multidigraph_MultiDiGraphDict(
 static PyMethodDef __pyx_methods_7pygraph_6cython_12multidigraph_MultiDiGraphDict[] = {
   {"loop_get_item", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_7loop_get_item, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
   {"loop_set_item", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_9loop_set_item, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"get_node_data", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11get_node_data, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_15__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 #if CYTHON_USE_TYPE_SPECS
@@ -8148,14 +8474,15 @@ static PyObject *__pyx_sq_item_7pygraph_6cython_12multidigraph_MultiDiGraph(PyOb
 static PyMethodDef __pyx_methods_7pygraph_6cython_12multidigraph_MultiDiGraph[] = {
   {"loop_get_item", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_5loop_get_item, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
   {"loop_set_item", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_7loop_set_item, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_9__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
-  {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"__reduce_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__reduce_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
+  {"__setstate_cython__", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_13__setstate_cython__, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0},
   {0, 0, 0, 0}
 };
 #if CYTHON_USE_TYPE_SPECS
 static PyType_Slot __pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraph_slots[] = {
   {Py_tp_dealloc, (void *)__pyx_tp_dealloc_7pygraph_6cython_12multidigraph_MultiDiGraph},
   {Py_sq_item, (void *)__pyx_sq_item_7pygraph_6cython_12multidigraph_MultiDiGraph},
+  {Py_sq_contains, (void *)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_9__contains__},
   {Py_mp_subscript, (void *)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_3__getitem__},
   {Py_tp_methods, (void *)__pyx_methods_7pygraph_6cython_12multidigraph_MultiDiGraph},
   {Py_tp_init, (void *)__pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_1__init__},
@@ -8179,7 +8506,7 @@ static PySequenceMethods __pyx_tp_as_sequence_MultiDiGraph = {
   0, /*sq_slice*/
   0, /*sq_ass_item*/
   0, /*sq_ass_slice*/
-  0, /*sq_contains*/
+  __pyx_pw_7pygraph_6cython_12multidigraph_12MultiDiGraph_9__contains__, /*sq_contains*/
   0, /*sq_inplace_concat*/
   0, /*sq_inplace_repeat*/
 };
@@ -8294,7 +8621,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_MultiDiGraphDict, __pyx_k_MultiDiGraphDict, sizeof(__pyx_k_MultiDiGraphDict), 0, 0, 1, 1},
     {&__pyx_n_s_MultiDiGraphDict___reduce_cython, __pyx_k_MultiDiGraphDict___reduce_cython, sizeof(__pyx_k_MultiDiGraphDict___reduce_cython), 0, 0, 1, 1},
     {&__pyx_n_s_MultiDiGraphDict___setstate_cyth, __pyx_k_MultiDiGraphDict___setstate_cyth, sizeof(__pyx_k_MultiDiGraphDict___setstate_cyth), 0, 0, 1, 1},
-    {&__pyx_n_s_MultiDiGraphDict_get_node_data, __pyx_k_MultiDiGraphDict_get_node_data, sizeof(__pyx_k_MultiDiGraphDict_get_node_data), 0, 0, 1, 1},
     {&__pyx_n_s_MultiDiGraphDict_loop_get_item, __pyx_k_MultiDiGraphDict_loop_get_item, sizeof(__pyx_k_MultiDiGraphDict_loop_get_item), 0, 0, 1, 1},
     {&__pyx_n_s_MultiDiGraphDict_loop_set_item, __pyx_k_MultiDiGraphDict_loop_set_item, sizeof(__pyx_k_MultiDiGraphDict_loop_set_item), 0, 0, 1, 1},
     {&__pyx_n_s_MultiDiGraph___reduce_cython, __pyx_k_MultiDiGraph___reduce_cython, sizeof(__pyx_k_MultiDiGraph___reduce_cython), 0, 0, 1, 1},
@@ -8302,13 +8628,14 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_MultiDiGraph_loop_get_item, __pyx_k_MultiDiGraph_loop_get_item, sizeof(__pyx_k_MultiDiGraph_loop_get_item), 0, 0, 1, 1},
     {&__pyx_n_s_MultiDiGraph_loop_set_item, __pyx_k_MultiDiGraph_loop_set_item, sizeof(__pyx_k_MultiDiGraph_loop_set_item), 0, 0, 1, 1},
     {&__pyx_n_s_PickleError, __pyx_k_PickleError, sizeof(__pyx_k_PickleError), 0, 0, 1, 1},
+    {&__pyx_n_s__18, __pyx_k__18, sizeof(__pyx_k__18), 0, 0, 1, 1},
     {&__pyx_kp_u__2, __pyx_k__2, sizeof(__pyx_k__2), 0, 1, 0, 0},
-    {&__pyx_n_s__20, __pyx_k__20, sizeof(__pyx_k__20), 0, 0, 1, 1},
     {&__pyx_n_s_a, __pyx_k_a, sizeof(__pyx_k_a), 0, 0, 1, 1},
     {&__pyx_n_s_asyncio_coroutines, __pyx_k_asyncio_coroutines, sizeof(__pyx_k_asyncio_coroutines), 0, 0, 1, 1},
     {&__pyx_n_s_b, __pyx_k_b, sizeof(__pyx_k_b), 0, 0, 1, 1},
     {&__pyx_n_s_class_getitem, __pyx_k_class_getitem, sizeof(__pyx_k_class_getitem), 0, 0, 1, 1},
     {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+    {&__pyx_n_s_decode, __pyx_k_decode, sizeof(__pyx_k_decode), 0, 0, 1, 1},
     {&__pyx_n_s_dict, __pyx_k_dict, sizeof(__pyx_k_dict), 0, 0, 1, 1},
     {&__pyx_n_s_dict_2, __pyx_k_dict_2, sizeof(__pyx_k_dict_2), 0, 0, 1, 1},
     {&__pyx_kp_u_disable, __pyx_k_disable, sizeof(__pyx_k_disable), 0, 1, 0, 0},
@@ -8316,7 +8643,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_kp_u_enable, __pyx_k_enable, sizeof(__pyx_k_enable), 0, 1, 0, 0},
     {&__pyx_n_s_encode, __pyx_k_encode, sizeof(__pyx_k_encode), 0, 0, 1, 1},
     {&__pyx_kp_u_gc, __pyx_k_gc, sizeof(__pyx_k_gc), 0, 1, 0, 0},
-    {&__pyx_n_s_get_node_data, __pyx_k_get_node_data, sizeof(__pyx_k_get_node_data), 0, 0, 1, 1},
     {&__pyx_n_s_getstate, __pyx_k_getstate, sizeof(__pyx_k_getstate), 0, 0, 1, 1},
     {&__pyx_n_s_i, __pyx_k_i, sizeof(__pyx_k_i), 0, 0, 1, 1},
     {&__pyx_n_s_import, __pyx_k_import, sizeof(__pyx_k_import), 0, 0, 1, 1},
@@ -8331,7 +8657,6 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_new, __pyx_k_new, sizeof(__pyx_k_new), 0, 0, 1, 1},
     {&__pyx_n_s_new_map, __pyx_k_new_map, sizeof(__pyx_k_new_map), 0, 0, 1, 1},
     {&__pyx_n_s_node_data, __pyx_k_node_data, sizeof(__pyx_k_node_data), 0, 0, 1, 1},
-    {&__pyx_n_s_node_id, __pyx_k_node_id, sizeof(__pyx_k_node_id), 0, 0, 1, 1},
     {&__pyx_n_s_number_loops, __pyx_k_number_loops, sizeof(__pyx_k_number_loops), 0, 0, 1, 1},
     {&__pyx_n_s_pickle, __pyx_k_pickle, sizeof(__pyx_k_pickle), 0, 0, 1, 1},
     {&__pyx_n_s_pygraph_cython_multidigraph, __pyx_k_pygraph_cython_multidigraph, sizeof(__pyx_k_pygraph_cython_multidigraph), 0, 0, 1, 1},
@@ -8356,13 +8681,14 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
     {&__pyx_n_s_update, __pyx_k_update, sizeof(__pyx_k_update), 0, 0, 1, 1},
     {&__pyx_n_s_use_setstate, __pyx_k_use_setstate, sizeof(__pyx_k_use_setstate), 0, 0, 1, 1},
+    {&__pyx_kp_s_utf_8, __pyx_k_utf_8, sizeof(__pyx_k_utf_8), 0, 0, 1, 0},
     {0, 0, 0, 0, 0, 0, 0}
   };
   return __Pyx_InitStrings(__pyx_string_tab);
 }
 /* #### Code section: cached_builtins ### */
 static CYTHON_SMALL_CODE int __Pyx_InitCachedBuiltins(void) {
-  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 35, __pyx_L1_error)
+  __pyx_builtin_range = __Pyx_GetBuiltinName(__pyx_n_s_range); if (!__pyx_builtin_range) __PYX_ERR(0, 36, __pyx_L1_error)
   return 0;
   __pyx_L1_error:;
   return -1;
@@ -8384,29 +8710,29 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
 
-  /* "pygraph/cython/multidigraph.pyx":31
+  /* "pygraph/cython/multidigraph.pyx":32
  *         return self._edge_data[key]
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
  *     @cython.wraparound(False)  # Deactivate negative indexing.
  *     def loop_get_item(self, int number_loops):
  */
-  __pyx_tuple__3 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_number_loops, __pyx_n_s_i); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_tuple__3 = PyTuple_Pack(3, __pyx_n_s_self, __pyx_n_s_number_loops, __pyx_n_s_i); if (unlikely(!__pyx_tuple__3)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__3);
   __Pyx_GIVEREF(__pyx_tuple__3);
-  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygraph_cython_multidigraph_pyx, __pyx_n_s_loop_get_item, 31, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_codeobj__4 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygraph_cython_multidigraph_pyx, __pyx_n_s_loop_get_item, 32, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__4)) __PYX_ERR(0, 32, __pyx_L1_error)
 
-  /* "pygraph/cython/multidigraph.pyx":38
+  /* "pygraph/cython/multidigraph.pyx":39
  *             self._edge_data['a']['b']['99']
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
  *     @cython.wraparound(False)  # Deactivate negative indexing.
  *     def loop_set_item(self, int number_loops):
  */
-  __pyx_tuple__5 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_number_loops, __pyx_n_s_i, __pyx_n_s_new_map); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_tuple__5 = PyTuple_Pack(4, __pyx_n_s_self, __pyx_n_s_number_loops, __pyx_n_s_i, __pyx_n_s_new_map); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygraph_cython_multidigraph_pyx, __pyx_n_s_loop_set_item, 38, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygraph_cython_multidigraph_pyx, __pyx_n_s_loop_set_item, 39, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(0, 39, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
@@ -8429,41 +8755,30 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_GIVEREF(__pyx_tuple__9);
   __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_setstate_cython, 16, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(1, 16, __pyx_L1_error)
 
-  /* "pygraph/cython/multidigraph.pyx":77
- *         return item in self._edge_data
+  /* "pygraph/cython/multidigraph.pyx":96
+ *         return py_string in self._edge_data
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
  *     @cython.wraparound(False)  # Deactivate negative indexing.
  *     def loop_get_item(self, int number_loops):
  */
-  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygraph_cython_multidigraph_pyx, __pyx_n_s_loop_get_item, 77, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_codeobj__11 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygraph_cython_multidigraph_pyx, __pyx_n_s_loop_get_item, 96, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__11)) __PYX_ERR(0, 96, __pyx_L1_error)
 
-  /* "pygraph/cython/multidigraph.pyx":84
+  /* "pygraph/cython/multidigraph.pyx":103
  *             self._edge_data['a']['b']['99']
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
  *     @cython.wraparound(False)  # Deactivate negative indexing.
  *     def loop_set_item(self, int number_loops):
  */
-  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygraph_cython_multidigraph_pyx, __pyx_n_s_loop_set_item, 84, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 84, __pyx_L1_error)
-
-  /* "pygraph/cython/multidigraph.pyx":91
- *             self._edge_data['a']['b']['99'] = 0.01
- * 
- *     def get_node_data(self, node_id):             # <<<<<<<<<<<<<<
- *         return self._node_data[node_id]
- */
-  __pyx_tuple__13 = PyTuple_Pack(2, __pyx_n_s_self, __pyx_n_s_node_id); if (unlikely(!__pyx_tuple__13)) __PYX_ERR(0, 91, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__13);
-  __Pyx_GIVEREF(__pyx_tuple__13);
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__13, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygraph_cython_multidigraph_pyx, __pyx_n_s_get_node_data, 91, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(0, 91, __pyx_L1_error)
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__3, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pygraph_cython_multidigraph_pyx, __pyx_n_s_loop_set_item, 103, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(0, 103, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __reduce_cython__(self):             # <<<<<<<<<<<<<<
  *     cdef tuple state
  *     cdef object _dict
  */
-  __pyx_codeobj__15 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_reduce_cython, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__15)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(1, 0, 0, 4, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_reduce_cython, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(1, 1, __pyx_L1_error)
 
   /* "(tree fragment)":16
  *     else:
@@ -8471,18 +8786,18 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_unpickle_MultiDiGraphDict__set_state(self, __pyx_state)
  */
-  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_setstate_cython, 16, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(1, 16, __pyx_L1_error)
+  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(2, 0, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__9, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_setstate_cython, 16, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(1, 16, __pyx_L1_error)
 
   /* "(tree fragment)":1
  * def __pyx_unpickle_MultiDiGraph(__pyx_type, long __pyx_checksum, __pyx_state):             # <<<<<<<<<<<<<<
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_tuple__17 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__17)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__17);
-  __Pyx_GIVEREF(__pyx_tuple__17);
-  __pyx_codeobj__18 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_MultiDiGraph, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__18)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __pyx_codeobj__19 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__17, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_MultiDiGraphDict, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__19)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_tuple__15 = PyTuple_Pack(5, __pyx_n_s_pyx_type, __pyx_n_s_pyx_checksum, __pyx_n_s_pyx_state, __pyx_n_s_pyx_PickleError, __pyx_n_s_pyx_result); if (unlikely(!__pyx_tuple__15)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__15);
+  __Pyx_GIVEREF(__pyx_tuple__15);
+  __pyx_codeobj__16 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_MultiDiGraph, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__16)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_codeobj__17 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__15, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_stringsource, __pyx_n_s_pyx_unpickle_MultiDiGraphDict, 1, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__17)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -8549,16 +8864,18 @@ static int __Pyx_modinit_type_init_code(void) {
   /*--- Type init code ---*/
   __pyx_vtabptr_7pygraph_6cython_12multidigraph_MultiDiGraphDict = &__pyx_vtable_7pygraph_6cython_12multidigraph_MultiDiGraphDict;
   __pyx_vtable_7pygraph_6cython_12multidigraph_MultiDiGraphDict._push_edge_data = (void (*)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *, PyObject *, PyObject *))__pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict__push_edge_data;
+  __pyx_vtable_7pygraph_6cython_12multidigraph_MultiDiGraphDict.isin = (bool (*)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *, std::string))__pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_isin;
+  __pyx_vtable_7pygraph_6cython_12multidigraph_MultiDiGraphDict.get_node_data = (PyObject *(*)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraphDict *, std::string))__pyx_f_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_get_node_data;
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraphDict_spec, NULL); if (unlikely(!__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict)) __PYX_ERR(0, 48, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraphDict_spec, __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraphDict_spec, NULL); if (unlikely(!__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict)) __PYX_ERR(0, 62, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraphDict_spec, __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   #else
   __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict = &__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraphDict;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
   __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict->tp_print = 0;
@@ -8568,26 +8885,28 @@ static int __Pyx_modinit_type_init_code(void) {
     __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict->tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
   #endif
-  if (__Pyx_SetVtable(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict, __pyx_vtabptr_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict, __pyx_vtabptr_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_MergeVtables(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (__Pyx_MergeVtables(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_MultiDiGraphDict, (PyObject *) __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_MultiDiGraphDict, (PyObject *) __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 48, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict) < 0) __PYX_ERR(0, 62, __pyx_L1_error)
   #endif
   __pyx_vtabptr_7pygraph_6cython_12multidigraph_MultiDiGraph = &__pyx_vtable_7pygraph_6cython_12multidigraph_MultiDiGraph;
   __pyx_vtable_7pygraph_6cython_12multidigraph_MultiDiGraph._push_edge_data = (void (*)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *, PyObject *, PyObject *))__pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph__push_edge_data;
+  __pyx_vtable_7pygraph_6cython_12multidigraph_MultiDiGraph.isin = (bool (*)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *, std::string))__pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph_isin;
+  __pyx_vtable_7pygraph_6cython_12multidigraph_MultiDiGraph.get_node_data = (std::unordered_map<std::string,double>  (*)(struct __pyx_obj_7pygraph_6cython_12multidigraph_MultiDiGraph *, std::string))__pyx_f_7pygraph_6cython_12multidigraph_12MultiDiGraph_get_node_data;
   #if CYTHON_USE_TYPE_SPECS
-  __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraph_spec, NULL); if (unlikely(!__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph)) __PYX_ERR(0, 9, __pyx_L1_error)
-  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraph_spec, __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph = (PyTypeObject *) __Pyx_PyType_FromModuleAndSpec(__pyx_m, &__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraph_spec, NULL); if (unlikely(!__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph)) __PYX_ERR(0, 10, __pyx_L1_error)
+  if (__Pyx_fix_up_extension_type_from_spec(&__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraph_spec, __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   #else
   __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph = &__pyx_type_7pygraph_6cython_12multidigraph_MultiDiGraph;
   #endif
   #if !CYTHON_COMPILING_IN_LIMITED_API
   #endif
   #if !CYTHON_USE_TYPE_SPECS
-  if (__Pyx_PyType_Ready(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (__Pyx_PyType_Ready(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   #endif
   #if PY_MAJOR_VERSION < 3
   __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph->tp_print = 0;
@@ -8597,13 +8916,13 @@ static int __Pyx_modinit_type_init_code(void) {
     __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph->tp_getattro = __Pyx_PyObject_GenericGetAttr;
   }
   #endif
-  if (__Pyx_SetVtable(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph, __pyx_vtabptr_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (__Pyx_SetVtable(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph, __pyx_vtabptr_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_MergeVtables(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (__Pyx_MergeVtables(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   #endif
-  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_MultiDiGraph, (PyObject *) __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (PyObject_SetAttr(__pyx_m, __pyx_n_s_MultiDiGraph, (PyObject *) __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   #if !CYTHON_COMPILING_IN_LIMITED_API
-  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 9, __pyx_L1_error)
+  if (__Pyx_setup_reduce((PyObject *) __pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph) < 0) __PYX_ERR(0, 10, __pyx_L1_error)
   #endif
   __Pyx_RefNannyFinishContext();
   return 0;
@@ -8916,29 +9235,29 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "pygraph/cython/multidigraph.pyx":31
+  /* "pygraph/cython/multidigraph.pyx":32
  *         return self._edge_data[key]
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
  *     @cython.wraparound(False)  # Deactivate negative indexing.
  *     def loop_get_item(self, int number_loops):
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_5loop_get_item, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraph_loop_get_item, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 31, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_5loop_get_item, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraph_loop_get_item, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__4)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph->tp_dict, __pyx_n_s_loop_get_item, __pyx_t_2) < 0) __PYX_ERR(0, 31, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph->tp_dict, __pyx_n_s_loop_get_item, __pyx_t_2) < 0) __PYX_ERR(0, 32, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph);
 
-  /* "pygraph/cython/multidigraph.pyx":38
+  /* "pygraph/cython/multidigraph.pyx":39
  *             self._edge_data['a']['b']['99']
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
  *     @cython.wraparound(False)  # Deactivate negative indexing.
  *     def loop_set_item(self, int number_loops):
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_7loop_set_item, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraph_loop_set_item, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 38, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_7loop_set_item, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraph_loop_set_item, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph->tp_dict, __pyx_n_s_loop_set_item, __pyx_t_2) < 0) __PYX_ERR(0, 38, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph->tp_dict, __pyx_n_s_loop_set_item, __pyx_t_2) < 0) __PYX_ERR(0, 39, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph);
 
@@ -8947,7 +9266,7 @@ if (!__Pyx_RefNanny) {
  *     cdef tuple state
  *     cdef object _dict
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_9__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraph___reduce_cython, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraph___reduce_cython, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph->tp_dict, __pyx_n_s_reduce_cython, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -8959,47 +9278,35 @@ if (!__Pyx_RefNanny) {
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_unpickle_MultiDiGraph__set_state(self, __pyx_state)
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_11__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraph___setstate_cython, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 16, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_12MultiDiGraph_13__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraph___setstate_cython, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph->tp_dict, __pyx_n_s_setstate_cython, __pyx_t_2) < 0) __PYX_ERR(1, 16, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraph);
 
-  /* "pygraph/cython/multidigraph.pyx":77
- *         return item in self._edge_data
+  /* "pygraph/cython/multidigraph.pyx":96
+ *         return py_string in self._edge_data
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
  *     @cython.wraparound(False)  # Deactivate negative indexing.
  *     def loop_get_item(self, int number_loops):
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_7loop_get_item, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraphDict_loop_get_item, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 77, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_7loop_get_item, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraphDict_loop_get_item, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__11)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict->tp_dict, __pyx_n_s_loop_get_item, __pyx_t_2) < 0) __PYX_ERR(0, 77, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict->tp_dict, __pyx_n_s_loop_get_item, __pyx_t_2) < 0) __PYX_ERR(0, 96, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict);
 
-  /* "pygraph/cython/multidigraph.pyx":84
+  /* "pygraph/cython/multidigraph.pyx":103
  *             self._edge_data['a']['b']['99']
  * 
  *     @cython.boundscheck(False)  # Deactivate bounds checking             # <<<<<<<<<<<<<<
  *     @cython.wraparound(False)  # Deactivate negative indexing.
  *     def loop_set_item(self, int number_loops):
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_9loop_set_item, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraphDict_loop_set_item, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 84, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_9loop_set_item, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraphDict_loop_set_item, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict->tp_dict, __pyx_n_s_loop_set_item, __pyx_t_2) < 0) __PYX_ERR(0, 84, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-  PyType_Modified(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict);
-
-  /* "pygraph/cython/multidigraph.pyx":91
- *             self._edge_data['a']['b']['99'] = 0.01
- * 
- *     def get_node_data(self, node_id):             # <<<<<<<<<<<<<<
- *         return self._node_data[node_id]
- */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11get_node_data, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraphDict_get_node_data, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_2)) __PYX_ERR(0, 91, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict->tp_dict, __pyx_n_s_get_node_data, __pyx_t_2) < 0) __PYX_ERR(0, 91, __pyx_L1_error)
+  if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict->tp_dict, __pyx_n_s_loop_set_item, __pyx_t_2) < 0) __PYX_ERR(0, 103, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
   PyType_Modified(__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict);
 
@@ -9008,7 +9315,7 @@ if (!__Pyx_RefNanny) {
  *     cdef tuple state
  *     cdef object _dict
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraphDict___reduce_cython, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__15)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_11__reduce_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraphDict___reduce_cython, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict->tp_dict, __pyx_n_s_reduce_cython, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -9020,7 +9327,7 @@ if (!__Pyx_RefNanny) {
  * def __setstate_cython__(self, __pyx_state):             # <<<<<<<<<<<<<<
  *     __pyx_unpickle_MultiDiGraphDict__set_state(self, __pyx_state)
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_15__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraphDict___setstate_cyth, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 16, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_16MultiDiGraphDict_13__setstate_cython__, __Pyx_CYFUNCTION_CCLASS, __pyx_n_s_MultiDiGraphDict___setstate_cyth, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 16, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem((PyObject *)__pyx_ptype_7pygraph_6cython_12multidigraph_MultiDiGraphDict->tp_dict, __pyx_n_s_setstate_cython, __pyx_t_2) < 0) __PYX_ERR(1, 16, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -9031,7 +9338,7 @@ if (!__Pyx_RefNanny) {
  *     cdef object __pyx_PickleError
  *     cdef object __pyx_result
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_1__pyx_unpickle_MultiDiGraph, 0, __pyx_n_s_pyx_unpickle_MultiDiGraph, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__18)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_1__pyx_unpickle_MultiDiGraph, 0, __pyx_n_s_pyx_unpickle_MultiDiGraph, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__16)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_MultiDiGraph, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -9043,7 +9350,7 @@ if (!__Pyx_RefNanny) {
  *     __pyx_result._edge_data = __pyx_state[0]; __pyx_result._node_data = __pyx_state[1]
  *     if len(__pyx_state) > 2 and hasattr(__pyx_result, '__dict__'):
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_3__pyx_unpickle_MultiDiGraphDict, 0, __pyx_n_s_pyx_unpickle_MultiDiGraphDict, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__19)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_7pygraph_6cython_12multidigraph_3__pyx_unpickle_MultiDiGraphDict, 0, __pyx_n_s_pyx_unpickle_MultiDiGraphDict, NULL, __pyx_n_s_pygraph_cython_multidigraph, __pyx_d, ((PyObject *)__pyx_codeobj__17)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_pyx_unpickle_MultiDiGraphDict, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
@@ -13276,7 +13583,7 @@ __Pyx_PyType_GetName(PyTypeObject* tp)
                                                __pyx_n_s_name);
     if (unlikely(name == NULL) || unlikely(!PyUnicode_Check(name))) {
         PyErr_Clear();
-        Py_XSETREF(name, __Pyx_NewRef(__pyx_n_s__20));
+        Py_XSETREF(name, __Pyx_NewRef(__pyx_n_s__18));
     }
     return name;
 }

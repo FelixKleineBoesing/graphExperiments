@@ -1,5 +1,5 @@
 from pygraph.cython.multidigraph import MultiDiGraph, MultiDiGraphDict
-from pygraph.cython.astar import astar_path
+from pygraph.cython import astar
 from unittest import TestCase
 from datetime import datetime
 
@@ -108,7 +108,7 @@ class TestAStar(GraphTester):
         node_data = {k: {"pos": 0.1} for k, v in self.node_data.items()}
         g = MultiDiGraph(edge_data=edge_data_list, node_data=node_data)
         start = datetime.now()
-        shortest_path = astar_path(g, "0", "7996", weight="weight")
+        shortest_path = astar.astar_path(g, "0", "7996", weight="weight")
         end = datetime.now()
         print(f"Path: {shortest_path}")
         print(f"Time: {end - start}")

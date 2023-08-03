@@ -12,6 +12,8 @@ pygraph.egg-info/top_level.txt
 pygraph/cython/astar.cpp
 pygraph/cython/multidigraph.cpp
 pygraph/nativepy/multidigraph.c
+pygraph/__pycache__/__init__.cpython-311.pyc
+pygraph/__pycache__/utils.cpython-311.pyc
 pygraph/cython/__init__.py
 pygraph/cython/astar.cp311-win_amd64.pyd
 pygraph/cython/astar.cpp
@@ -20,6 +22,8 @@ pygraph/cython/multidigraph.cp311-win_amd64.pyd
 pygraph/cython/multidigraph.cpp
 pygraph/cython/multidigraph.pxd
 pygraph/cython/multidigraph.pyx
+pygraph/cython/queue_types.pxd
+pygraph/cython/__pycache__/__init__.cpython-311.pyc
 pygraph/nativepy/__init__.py
 pygraph/nativepy/astar.py
 pygraph/nativepy/multidigraph.c
