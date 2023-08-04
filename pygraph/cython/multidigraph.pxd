@@ -19,3 +19,4 @@ cdef class MultiDiGraph:
     cdef void _push_edge_data(self, tuple edge_id, dict data)
     cdef bool isin(self, string node)
     cdef unordered_map[string, double] get_node_data(self, string node)
+    cdef unordered_map[string, unordered_map[string, unordered_map[string, double]]] adj(self, string node_id)

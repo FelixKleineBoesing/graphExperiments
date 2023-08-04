@@ -6,6 +6,7 @@ cimport cython
 from pygraph.cython cimport multidigraph
 from pygraph.cython cimport queue_types
 from libcpp.string cimport string
+from libcpp.vector cimport vector
 from libcpp.queue cimport priority_queue
 from libcpp.pair cimport pair
 
@@ -37,11 +38,17 @@ cdef _weight_function(multidigraph.MultiDiGraph G, weight):
         raise TypeError("weight must be None, a string or a function")
 
 
+@cython.boundscheck(False) # compiler directive
+@cython.wraparound(False) # compiler directive
 cdef base_heuristic(u, u_data, v, v_data):
     return 0
 
 
-def astar_path(multidigraph.MultiDiGraph G, string source, string target, heuristic=None, weight="weight"):
+@cython.boundscheck(False) # compiler directive
+@cython.wraparound(False) # compiler directive
+def astar_path(multidigraph.MultiDiGraph G, str src, str trgt, heuristic=None, weight="weight"):
+    cdef string source = src
+    cdef string target = trgt
     if  not G.isin(source) or not G.isin(target):
         msg = f"Either source {source} or target {target} is not in G"
         raise NodeNotFound(msg)
@@ -52,40 +59,52 @@ def astar_path(multidigraph.MultiDiGraph G, string source, string target, heuris
 
     cdef priority_queue[queue_types.queueItem] queue
     cdef int counter = 0
-    queue.push(queue_types.queueItem(0, counter, source, 0, "", ""))
+    queue.push(queue_types.queueItem(0, counter, source, 0, string(), string()))
 
     cdef unordered_map[string, pair[double, double]] enqueued
     cdef unordered_map[string, pair[string, string]] explored
     cdef string curnode
+    cdef double dist
+    cdef string parent
+    cdef string key
+    cdef string key_previous
+    cdef string node
+    cdef pair[string, string] explored_pair
+    cdef queue_types.queueItem queue_item
+    cdef unordered_map[string, unordered_map[string, unordered_map[string, double]]] adj
+    cdef unordered_map[string, unordered_map[string, double]] w
+
     while not queue.empty():
         queue_item = queue.top()
         queue.pop()
         curnode, dist, parent, key = queue_item.node, queue_item.dist, queue_item.parent, queue_item.key
-        print(f"curnode:{curnode}, Len queue: {queue.size()}")
         if curnode == target:
+            print("found target")
             path = [(parent, curnode, key)]
             node = parent
-            while node is not None:
+            while node != string():
                 parent = node
                 node, key = explored[node]
-                if node is not None:
+                if node != string():
                     path.append((node, parent, key))
             path.reverse()
             return path
 
         if explored.find(curnode) != explored.end():
-            if explored[curnode] == ("", ""):
+            if explored[curnode] == (string(), string()):
                 continue
 
             qcost, h = enqueued[curnode]
             if qcost < dist:
                 continue
 
-        explored[curnode] = (parent, key)
+        explored_pair = pair[string, string](parent, key)
+        explored[curnode] = explored_pair
         key_previous = key
 
-        for neighbor, w in G[curnode].items():
-            for key in w.keys():
+        adj = G.adj(curnode)
+        for neighbor, w in adj:
+            for key, data in w:
                 ncost = dist + weight(
                     g=G,
                     u=curnode,

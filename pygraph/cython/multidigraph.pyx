@@ -15,6 +15,8 @@ cdef class MultiDiGraph:
         for edge_id, data in edge_data.items():
             self._push_edge_data(edge_id, data)
 
+    @cython.wraparound(False)  # Deactivate negative indexing.
+    @cython.boundscheck(False)  # Deactivate bounds checking
     cdef void _push_edge_data(self, tuple edge_id, dict data):
         cdef string first_key = edge_id[0].encode()
         cdef string second_key = edge_id[1].encode()
@@ -25,36 +27,33 @@ cdef class MultiDiGraph:
 
         self._edge_data[first_key][second_key][third_key] = new_map
 
-    def __getitem__(self, item):
+    @cython.wraparound(False)  # Deactivate negative indexing.
+    @cython.boundscheck(False)  # Deactivate bounds checking
+    def __getitem__(self, str item):
         cdef string key = item.encode()
-        return self._edge_data[key]
+        return self.adj(key)
+
+    @cython.wraparound(False)  # Deactivate negative indexing.
+    @cython.boundscheck(False)  # Deactivate bounds checking
+    cdef unordered_map[string, unordered_map[string, unordered_map[string, double]]] adj(self, string node_id):
+        return self._edge_data[node_id]
 
     @cython.boundscheck(False)  # Deactivate bounds checking
     @cython.wraparound(False)  # Deactivate negative indexing.
-    def loop_get_item(self, int number_loops):
-        cdef int i
-        for i in range(number_loops):
-            self._edge_data['a']['b']['99']
-
-    @cython.boundscheck(False)  # Deactivate bounds checking
-    @cython.wraparound(False)  # Deactivate negative indexing.
-    def loop_set_item(self, int number_loops):
-        cdef int i
-        cdef unordered_map[string, double] new_map = unordered_map[string, double]()
-        new_map["99"] = 0.01
-        for i in range(number_loops):
-            self._edge_data['a']['b']['99'] = new_map
-
     def __contains__(self, item):
         cdef string key = item.encode()
         c_bool =  self.isin(key)
 
+    @cython.boundscheck(False)  # Deactivate bounds checking
+    @cython.wraparound(False)  # Deactivate negative indexing.
     cdef cbool isin(self, string node):
         if self._edge_data.find(node) != self._edge_data.end():
             return True
         else:
             return False
 
+    @cython.boundscheck(False)  # Deactivate bounds checking
+    @cython.wraparound(False)  # Deactivate negative indexing.
     cdef unordered_map[string, double] get_node_data(self, string node_id):
         return self._node_data.at(node_id)
 
@@ -69,6 +68,8 @@ cdef class MultiDiGraphDict:
         for edge_id, data in edge_data.items():
             self._push_edge_data(edge_id, data)
 
+    @cython.wraparound(False)  # Deactivate negative indexing.
+    @cython.boundscheck(False)  # Deactivate bounds checking
     cdef void _push_edge_data(self, tuple edge_id, dict data):
         if edge_id[0] not in self._node_data:
             self._node_data[edge_id[0]] = {}
@@ -81,32 +82,26 @@ cdef class MultiDiGraphDict:
             self._edge_data[edge_id[0]][edge_id[1]] = {}
         self._edge_data[edge_id[0]][edge_id[1]][edge_id[2]] = data
 
+    @cython.wraparound(False)  # Deactivate negative indexing.
+    @cython.boundscheck(False)  # Deactivate bounds checking
     def __getitem__(self, item):
         cdef string key = item.encode()
         return self._edge_data[key]
 
-    def __contains__(self, item):
+    @cython.wraparound(False)  # Deactivate negative indexing.
+    @cython.boundscheck(False)  # Deactivate bounds checking
+    def __contains__(self, str item):
         cdef string key = item.encode()
         return self.isin(key)
 
+    @cython.wraparound(False)  # Deactivate negative indexing.
+    @cython.boundscheck(False)  # Deactivate bounds checking
     cdef cbool isin(self, string node):
         py_string = node.decode('utf-8')
         return py_string in self._edge_data
 
-    @cython.boundscheck(False)  # Deactivate bounds checking
     @cython.wraparound(False)  # Deactivate negative indexing.
-    def loop_get_item(self, int number_loops):
-        cdef int i
-        for i in range(number_loops):
-            self._edge_data['a']['b']['99']
-
     @cython.boundscheck(False)  # Deactivate bounds checking
-    @cython.wraparound(False)  # Deactivate negative indexing.
-    def loop_set_item(self, int number_loops):
-        cdef int i
-        for i in range(number_loops):
-            self._edge_data['a']['b']['99'] = 0.01
-
     cdef dict get_node_data(self, string node_id):
         # convert cpp string to python string
         py_string = node_id.decode('utf-8')

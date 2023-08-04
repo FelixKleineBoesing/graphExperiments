@@ -19,7 +19,7 @@ cdef extern from *:
     } queueItem;
 
     bool operator<(const queueItem t1, const queueItem t2) {
-        return t1.priority < t2.priority;
+        return t1.priority > t2.priority;
     }
     """
     ctypedef struct queueItem:
