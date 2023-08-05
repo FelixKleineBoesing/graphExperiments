@@ -2,7 +2,7 @@
 cimport cython
 from libcpp cimport bool
 from libcpp.string cimport string
-
+from libcpp.unordered_map cimport unordered_map
 
 cdef extern from *:
     """
@@ -29,3 +29,4 @@ cdef extern from *:
         double dist
         string parent
         string key
+

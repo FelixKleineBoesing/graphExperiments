@@ -1,9 +1,9 @@
 from pygraph.cython.multidigraph import MultiDiGraph, MultiDiGraphDict
-from pygraph.cython.astar import astar_path
+from pygraph.cython.astar import astar_path, GetWeightFunction, DummyHeuristic
 from unittest import TestCase
 from datetime import datetime
-
-from pygraph.utils import convert_edge_list
+import cProfile
+from pygraph.utils import convert_edge_list, profile_and_dump_stats
 from utils import GraphTester
 
 
@@ -112,8 +112,8 @@ class TestAStar(GraphTester):
         node_data = {k: {"pos": 0.1} for k, v in self.node_data.items()}
         g = MultiDiGraph(edge_data=edge_data_list, node_data=node_data)
         start = datetime.now()
-        shortest_path = astar_path(g, "0", "7996", weight="weight")
-        print(shortest_path)
+        heuristic = DummyHeuristic()
+        shortest_path = profile_and_dump_stats(astar_path, args=(g, "0", "7996", heuristic, "weight"), kwargs={})
         end = datetime.now()
         print(f"Path: {shortest_path}")
         print(f"Time: {end - start}")
