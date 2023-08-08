@@ -13,6 +13,9 @@ struct NodeData {
             pos = std::get<std::pair<float, float>>(nodeData.at("pos"));
         }
     }
+    auto operator[](std::string key) {
+        return pos;
+    }
 };
 
 struct EdgeData {
