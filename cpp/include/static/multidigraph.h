@@ -8,8 +8,16 @@
 #include <tuple>
 
 // Forward declaration for the structs
-struct NodeData;
-struct EdgeData;
+struct NodeData {
+    std::pair<float, float> pos;
+    NodeData(const std::unordered_map<std::string, std::pair<float, float>>& nodeData);
+};
+
+struct EdgeData {
+    int weight;
+    EdgeData(const std::unordered_map<std::string, int>& edgeData);
+};
+
 
 class MultiDiGraph {
 private:
@@ -33,13 +41,3 @@ public:
     int number_of_nodes();
 };
 
-// Structs definition
-struct NodeData {
-    std::pair<float, float> pos;
-    NodeData(const std::unordered_map<std::string, std::pair<float, float>>& nodeData);
-};
-
-struct EdgeData {
-    int weight;
-    EdgeData(const std::unordered_map<std::string, int>& edgeData);
-};

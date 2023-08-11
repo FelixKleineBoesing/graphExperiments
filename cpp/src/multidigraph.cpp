@@ -14,7 +14,9 @@ struct NodeData {
         }
     }
     auto operator[](std::string key) {
-        return pos;
+        if key == "pos" {
+            return pos;
+        }
     }
 };
 
@@ -23,6 +25,11 @@ struct EdgeData {
     EdgeData(const std::unordered_map<std::string, int>& edgeData) {
         if (edgeData.find("weight") != edgeData.end()) {
             weight = std::get<int>(edgeData.at("weight"));
+        }
+    }
+    auto operator[](std::string key) {
+        if key == "weight" {
+            return weight;
         }
     }
 };
