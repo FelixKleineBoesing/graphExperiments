@@ -21,13 +21,13 @@ struct NodeData {
 };
 
 struct EdgeData {
-    int weight;
+    float weight;
     EdgeData(const std::unordered_map<std::string, int>& edgeData) {
         if (edgeData.find("weight") != edgeData.end()) {
             weight = std::get<int>(edgeData.at("weight"));
         }
     }
-    auto operator[](std::string key) {
+    float operator[](std::string key) {
         if key == "weight" {
             return weight;
         }
