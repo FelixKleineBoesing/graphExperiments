@@ -18,14 +18,14 @@ public:
 
 class HeuristicFunction {
 public:
-    virtual double call(const std::string& u, const std::unordered_map<std::string, double>& u_data,
-                        const std::string& v, const std::unordered_map<std::string, double>& v_data) = 0;
+    virtual double call(const std::string& u, const NodeData& u_data,
+                        const std::string& v, const NodeData& v_data) = 0;
 };
 
 class DummyHeuristic : public HeuristicFunction {
 public:
-    double call(const std::string& u, const std::unordered_map<std::string, double>& u_data,
-                const std::string& v, const std::unordered_map<std::string, double>& v_data) override {
+    double call(const std::string& u, const NodeData& u_data,
+                const std::string& v, const NodeData& v_data) override {
         return 0.0;
     }
 };
@@ -64,21 +64,27 @@ struct QueueItem {
     std::string parent;
     std::string key;
 
-    bool operator>(const QueueItem& other) const {
+        // Constructor
+    QueueItem(double _priority, int _counter, const std::string& _node, double _dist,
+              const std::string& _parent, const std::string& _key)
+        : priority(_priority), counter(_counter), node(_node), dist(_dist),
+          parent(_parent), key(_key) {}
+
+    bool operator<(const QueueItem& other) const {
         return priority > other.priority;
     }
 };
 
 
 std::vector<std::tuple<std::string, std::string, std::string>>
-astar_path(MultiDiGraph& G, const std::string& source, const std::string& target,
+astar_path(MultiDiGraph& G, const std::string source, const std::string target,
            HeuristicFunction* heuristic = nullptr, WeightFunction* weight = nullptr) {
 
     std::unordered_map<std::string, std::pair<double, double>> enqueued;
     std::unordered_map<std::string, std::pair<std::string, std::string>> explored;
     std::pair<std::string, std::string> empty_node("", "");
 
-    if (!G.isin(source) || !G.isin(target)) {
+    if (!G.has_node(source) || !G.has_node(target)) {
         throw NodeNotFound("Either source " + source + " or target " + target + " is not in G");
     }
 
@@ -87,15 +93,15 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
 
     std::priority_queue<QueueItem> queue;
     int counter = 0;
-    queue.push(queueItem(0, counter, source, 0, "", ""));
+    queue.push(QueueItem(0.0, counter, source, 0.0, std::string(""), std::string("")));
 
     while (!queue.empty()) {
-        queueItem top = queue.top();
+        QueueItem topItem = queue.top();
         queue.pop();
-        std::string curnode = top.node;
-        double dist = top.dist;
-        std::string parent = top.parent;
-        std::string key = top.key;
+        std::string curnode = topItem.node;
+        double dist = topItem.dist;
+        std::string parent = topItem.parent;
+        std::string key = topItem.key;
         if (curnode == target) {
             std::vector<std::tuple<std::string, std::string, std::string>> path;
             std::string node = parent;
@@ -124,12 +130,12 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
                 if (enqueued.find(neighbor) != enqueued.end() && enqueued[neighbor].first <= ncost) {
                     continue;
                 } else {
-                    std::unordered_map<std::string, double> neighbor_node_data = G.get_node_data(neighbor);
-                    std::unordered_map<std::string, double> target_node_data = G.get_node_data(target);
+                    NodeData neighbor_node_data = G.get_node_data(neighbor);
+                    NodeData target_node_data = G.get_node_data(target);
                     double h = heuristic_func->call(neighbor, neighbor_node_data, target, target_node_data);
                     enqueued[neighbor] = {ncost, h};
                     counter++;
-                    queue.push(queueItem(ncost + h, counter, neighbor, ncost, curnode, key));
+                    queue.push(QueueItem(ncost + h, counter, neighbor, ncost, curnode, key));
                 }
             }
         }

@@ -9,13 +9,15 @@
 
 // Forward declaration for the structs
 struct NodeData {
-    std::pair<float, float> pos;
-    NodeData(const std::unordered_map<std::string, std::pair<float, float>>& nodeData);
+    std::pair<double, double> pos;
+    NodeData(const std::unordered_map<std::string, std::pair<double, double>>& nodeData);
+    std::pair<double, double> operator[](std::string key);
 };
 
 struct EdgeData {
-    int weight;
-    EdgeData(const std::unordered_map<std::string, int>& edgeData);
+    double weight;
+    EdgeData(const std::unordered_map<std::string, double>& edgeData);
+    double operator[](std::string key);
 };
 
 

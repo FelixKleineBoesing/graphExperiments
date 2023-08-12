@@ -6,14 +6,14 @@
 
 
 struct NodeData {
-    std::pair<float, float> pos;
+    std::pair<double, double> pos;
 
-    NodeData(const std::unordered_map<std::string, std::pair<float, float>>& nodeData) {
+    NodeData(const std::unordered_map<std::string, std::pair<double, double>>& nodeData) {
         if (nodeData.find("pos") != nodeData.end()) {
-            pos = std::get<std::pair<float, float>>(nodeData.at("pos"));
+            pos = std::get<std::pair<double, double>>(nodeData.at("pos"));
         }
     }
-    auto operator[](std::string key) {
+    std::pair<double, double> operator[](std::string key) {
         if key == "pos" {
             return pos;
         }
@@ -21,16 +21,26 @@ struct NodeData {
 };
 
 struct EdgeData {
-    int weight;
-    EdgeData(const std::unordered_map<std::string, int>& edgeData) {
-        if (edgeData.find("weight") != edgeData.end()) {
-            weight = std::get<int>(edgeData.at("weight"));
+    double weight;
+
+    EdgeData(double weight) : weight(weight) {}
+
+    EdgeData(const std::unordered_map<std::string, double>& edgeData) {
+        auto it = edgeData.find("weight");
+        if (it != edgeData.end()) {
+            weight = it->second;
+        } else {
+            weight = 0.0;  // Or some default value if "weight" key is not found.
         }
     }
-    auto operator[](std::string key) {
-        if key == "weight" {
+
+    double operator[](const std::string& key) const {
+        if (key == "weight") {
             return weight;
         }
+        // Maybe throw an exception or return a default value
+        // if the key doesn't match any known keys.
+        return 0.0;  // For now, returning 0.0 as default.
     }
 };
 
