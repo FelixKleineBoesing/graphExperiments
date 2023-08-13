@@ -1,5 +1,6 @@
 #include <unordered_map>
 #include <string>
+#include <utility>
 #include <vector>
 #include <queue>
 #include <stdexcept>
@@ -8,12 +9,12 @@
 
 class NodeNotFound : public std::runtime_error {
 public:
-    NodeNotFound(const std::string& message) : std::runtime_error(message) {}
+    explicit NodeNotFound(const std::string& message) : std::runtime_error(message) {}
 };
 
 class NoPath : public std::runtime_error {
 public:
-    NoPath(const std::string& message) : std::runtime_error(message) {}
+    explicit NoPath(const std::string& message) : std::runtime_error(message) {}
 };
 
 class HeuristicFunction {
@@ -47,11 +48,12 @@ public:
 class GetWeightFunction : public WeightFunction {
     std::string weight;
 public:
-    GetWeightFunction(const std::string& weight) : weight(weight) {}
+    explicit GetWeightFunction(std::string  weight) : weight(std::move(weight)) {}
 
     double call(MultiDiGraph& g, const std::string& u, const std::string& v,
                 const std::string& key, const std::string& key_previous, const std::string& v_previous) override {
-        return g.adj(u)[v][key][weight];
+        EdgeData edge_data = g.adj(u)[v][key];
+        return edge_data[weight];
     }
 };
 
@@ -65,10 +67,10 @@ struct QueueItem {
     std::string key;
 
         // Constructor
-    QueueItem(double _priority, int _counter, const std::string& _node, double _dist,
-              const std::string& _parent, const std::string& _key)
-        : priority(_priority), counter(_counter), node(_node), dist(_dist),
-          parent(_parent), key(_key) {}
+    QueueItem(double _priority, int _counter, std::string  _node, double _dist,
+              std::string  _parent, std::string  _key)
+        : priority(_priority), counter(_counter), node(std::move(_node)), dist(_dist),
+          parent(std::move(_parent)), key(std::move(_key)) {}
 
     bool operator<(const QueueItem& other) const {
         return priority > other.priority;
@@ -77,7 +79,7 @@ struct QueueItem {
 
 
 std::vector<std::tuple<std::string, std::string, std::string>>
-astar_path(MultiDiGraph& G, const std::string source, const std::string target,
+astar_path(MultiDiGraph& G, const std::string& source, const std::string& target,
            HeuristicFunction* heuristic = nullptr, WeightFunction* weight = nullptr) {
 
     std::unordered_map<std::string, std::pair<double, double>> enqueued;
@@ -124,7 +126,7 @@ astar_path(MultiDiGraph& G, const std::string source, const std::string target,
         std::string key_previous = key;
 
         auto adj = G.adj(curnode);
-        for (const auto& [neighbor, w] : adj) {
+        for (auto& [neighbor, w] : adj) {
             for (const auto& [key, data] : w) {
                 double ncost = dist + weight_func->call(G, curnode, neighbor, key, key_previous, parent);
                 if (enqueued.find(neighbor) != enqueued.end() && enqueued[neighbor].first <= ncost) {
