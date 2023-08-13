@@ -12,7 +12,6 @@ target_include_directories(networkcpp
         ${PROJECT_SOURCE_DIR}/include
 )
 
-
 # try conditional compilation
 include(CheckCXXCompilerFlag)
 CHECK_CXX_COMPILER_FLAG("-std=c++11" COMPILER_SUPPORTS_CXX11)
@@ -34,3 +33,5 @@ target_link_libraries( networkcpp_main
     PRIVATE
         networkcpp
 )
+
+target_compile_features(networkcpp_main PRIVATE cxx_std_17)

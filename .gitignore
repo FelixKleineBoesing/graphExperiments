@@ -1,2 +1,4 @@
 *.json
 cpp/build/
+cpp/cmake-build-debug/
+cpp/.idea/
