@@ -1,12 +1,13 @@
 #include <map>
 #include <iostream>
-#include "static/astar.h"
-#include "static/multidigraph.h"
+#include <static/astar.h>
+#include <static/multidigraph.h>
 
 
 int main() {
-    std::string file_path_edges = "../../python/tests/random_graph.json";
-    std::string file_path_nodes = "../../python/node_data.json";
+    std::cout << "Starting" << std::endl;
+    std::string file_path_edges = "../python/tests/random_graph.json";
+    std::string file_path_nodes = "../python/tests/node_data.json";
 
     MultiDiGraph graph(file_path_edges, file_path_nodes);
     std::cout << "Graph loaded" << std::endl;
