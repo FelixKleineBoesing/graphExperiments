@@ -13,6 +13,8 @@ struct NodeData {
 
     explicit NodeData() : pos({0.0, 0.0}) {} // Default constructor
 
+    explicit NodeData(const std::pair<double, double>& pos);
+
     explicit NodeData(const std::unordered_map<std::string, std::pair<double, double>>& nodeData);
 
     std::pair<double, double> operator[](const std::string& key) const;

@@ -4,6 +4,8 @@
 #include <string>
 #include <tuple>
 #include <static/multidigraph.h>
+#include <simdjson.h>
+using namespace simdjson;
 
 // Definition for NodeData member functions
 NodeData::NodeData(const std::unordered_map<std::string, std::pair<double, double>>& nodeData) {
@@ -14,6 +16,8 @@ NodeData::NodeData(const std::unordered_map<std::string, std::pair<double, doubl
         pos = {0.0, 0.0};  // Default position, modify as necessary.
     }
 }
+
+NodeData::NodeData(const std::pair<double, double>& p) : pos(p) {}
 
 std::pair<double, double> NodeData::operator[](const std::string& key) const {
     if (key == "pos") {
@@ -83,11 +87,11 @@ MultiDiGraph::MultiDiGraph(const std::string& pathToEdges, const std::string& pa
     // Reading nodes from pathToNodes
     std::ifstream nodeFile(pathToNodes);
     if (nodeFile.is_open()) {
-        nlohmann::json nodeDataJson;
-        nodeFile >> nodeDataJson;
+        nlohmann::json nodeDataJson = nlohmann::json::parse(nodeFile);
 
         for (auto& [key, value] : nodeDataJson.items()) {
-            NodeData nd(value.at("pos"));
+            std::pair<double, double> pos = value.at("pos");
+            NodeData nd(pos);
             node_data[key] = nd;
         }
     }
@@ -96,8 +100,7 @@ MultiDiGraph::MultiDiGraph(const std::string& pathToEdges, const std::string& pa
     // Reading edges from pathToEdges
     std::ifstream edgeFile(pathToEdges);
     if (edgeFile.is_open()) {
-        nlohmann::json edgeDataJson;
-        edgeFile >> edgeDataJson;
+        nlohmann::json edgeDataJson = nlohmann::json::parse(edgeFile);
 
         for (auto& [srcNode, targetEdges] : edgeDataJson.items()) {
             for (auto& [tgtNode, edges] : targetEdges.items()) {
