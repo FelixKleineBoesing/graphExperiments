@@ -85,17 +85,24 @@ MultiDiGraph::MultiDiGraph(const std::string& pathToEdges, const std::string& pa
     }
 
     // Reading nodes from pathToNodes
-    std::ifstream nodeFile(pathToNodes);
-    if (nodeFile.is_open()) {
-        nlohmann::json nodeDataJson = nlohmann::json::parse(nodeFile);
+    simdjson::dom::parser parser;
+    simdjson::dom::object doc = parser.load(pathToNodes);
 
-        for (auto& [key, value] : nodeDataJson.items()) {
-            std::pair<double, double> pos = value.at("pos");
-            NodeData nd(pos);
-            node_data[key] = nd;
-        }
+    for (auto& [key, value] : doc) {
+        std::string key_str = std::string(key.data(), key.size());
+
+        // Access the "pos" array and extract its values
+        simdjson::dom::array pos_array;
+
+        auto it = pos_array.begin();
+        double x, y;
+        x = double(*(it));
+        y = double(*(++it));
+        std::pair<double, double> pos(x, y);
+        NodeData nd(pos);
+        node_data[key_str] = nd;
     }
-    nodeFile.close();
+
 
     // Reading edges from pathToEdges
     std::ifstream edgeFile(pathToEdges);
