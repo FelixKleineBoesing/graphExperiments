@@ -5,6 +5,8 @@
 #include <tuple>
 #include <static/multidigraph.h>
 #include <simdjson.h>
+#include <iostream>
+
 using namespace simdjson;
 
 // Definition for NodeData member functions
@@ -92,12 +94,12 @@ MultiDiGraph::MultiDiGraph(const std::string& pathToEdges, const std::string& pa
         std::string key_str = std::string(key.data(), key.size());
 
         // Access the "pos" array and extract its values
-        simdjson::dom::array pos_array;
-
-        auto it = pos_array.begin();
+        auto single_node_data = value.get_object();
+        auto single_node_pos = single_node_data["pos"].get_array();
         double x, y;
-        x = double(*(it));
-        y = double(*(++it));
+
+        x = single_node_pos.at(0).get_double();
+        y = single_node_pos.at(1).get_double();
         std::pair<double, double> pos(x, y);
         NodeData nd(pos);
         node_data[key_str] = nd;
@@ -105,21 +107,26 @@ MultiDiGraph::MultiDiGraph(const std::string& pathToEdges, const std::string& pa
 
 
     // Reading edges from pathToEdges
-    std::ifstream edgeFile(pathToEdges);
-    if (edgeFile.is_open()) {
-        nlohmann::json edgeDataJson = nlohmann::json::parse(edgeFile);
-
-        for (auto& [srcNode, targetEdges] : edgeDataJson.items()) {
-            for (auto& [tgtNode, edges] : targetEdges.items()) {
-                for (auto& [edgeId, edgeAttrs] : edges.items()) {
-                    double weight = edgeAttrs.at("weight");
-                    EdgeData ed(weight);
-                    edge_data[srcNode][tgtNode][edgeId] = ed;
+    simdjson::dom::object docEdges = parser.load(pathToEdges);
+    int counter = 0;
+    for (auto& [key, value]: docEdges) {
+        for (auto& [key2, value2]: value.get_object()) {
+            for (auto& [key3, value3]: value2.get_object()) {
+                counter++;
+                if (counter % 10000 == 0) {
+                    std::cout << counter << std::endl;
                 }
+                std::string key_str = std::string(key.data(), key.size());
+                std::string key2_str = std::string(key2.data(), key2.size());
+                std::string key3_str = std::string(key3.data(), key3.size());
+
+                auto single_edge_data = value3.get_object();
+                double weight = single_edge_data["weight"].get_double();
+                EdgeData ed(weight);
+                edge_data[key_str][key2_str][key3_str] = ed;
             }
         }
     }
-    edgeFile.close();
 }
 
 // get_node_data function

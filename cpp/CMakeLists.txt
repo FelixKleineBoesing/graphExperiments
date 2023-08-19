@@ -11,7 +11,7 @@ project(networkcpp)
 add_library(networkcpp STATIC
     src/astar.cpp
     src/multidigraph.cpp
-        src/simdjson.cpp
+        include/simdjson.cpp
 )
 
 target_include_directories(networkcpp

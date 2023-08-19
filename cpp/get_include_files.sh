@@ -1,0 +1,2 @@
+wget https://github.com/simdjson/simdjson/blob/v3.2.2/singleheader/simdjson.cpp -o include/simdjson.cpp
+wget https://github.com/simdjson/simdjson/blob/v3.2.2/singleheader/simdjson.h -o include/simdjson.h
