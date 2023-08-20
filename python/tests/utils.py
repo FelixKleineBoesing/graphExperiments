@@ -7,7 +7,7 @@ import networkx as nx
 
 from pygraph.utils import get_root_dir
 
-ROOT_DIR = get_root_dir()
+ROOT_DIR = get_root_dir("python")
 
 
 class GraphTester(TestCase):
@@ -20,10 +20,10 @@ class GraphTester(TestCase):
         def euclidean_distance(x, y):
             return ((x[0] - y[0]) ** 2 + (x[1] - y[1]) ** 2) ** 0.5
 
-        if os.path.exists(Path(ROOT_DIR, "tests", "random_graph.json")):
-            with open(Path(ROOT_DIR, "tests", "random_graph.json"), "r") as f:
+        if os.path.exists(Path(ROOT_DIR, "python", "tests", "random_graph.json")):
+            with open(Path(ROOT_DIR, "python","tests", "random_graph.json"), "r") as f:
                 cls.edge_data = json.load(f)
-            with open(Path(ROOT_DIR, "tests", "node_data.json"), "r") as f:
+            with open(Path(ROOT_DIR, "python", "tests", "node_data.json"), "r") as f:
                 cls.node_data = json.load(f)
         else:
             cls.graph: nx.Graph = nx.random_geometric_graph(100000, 0.02, seed=42, dim=2, pos=None)

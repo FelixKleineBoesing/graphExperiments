@@ -13,5 +13,9 @@ int main() {
     std::cout << "Graph loaded" << std::endl;
     std::cout << "Number of nodes: " << graph.number_of_nodes() << std::endl;
 
+    auto shortest_path = astar_path(graph, "0", "79999", new DummyHeuristic(), new GetWeightFunction("weight"));
+    std::cout << "Shortest path found" << std::endl;
+    std::cout << "Path length: " << shortest_path.size() << std::endl;
+
     return 0;
 }

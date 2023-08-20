@@ -65,7 +65,7 @@ class TestAStar(GraphTester):
         edge_data_list = convert_edge_list(self.edge_data)
         g = MultiDiGraph(edge_data=edge_data_list, node_data=self.node_data)
         start = datetime.now()
-        shortest_path = astar_path(g, "0", "7996", weight="weight")
+        shortest_path = astar_path(g, "0", "79999", weight="weight")
         end = datetime.now()
         print(f"Path: {shortest_path}")
         print(f"Time: {end - start}")

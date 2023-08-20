@@ -5,82 +5,49 @@
 #include <queue>
 #include <stdexcept>
 #include <iostream>
+#include <static/astar.h>
 #include <static/multidigraph.h>
 
-class NodeNotFound : public std::runtime_error {
-public:
-    explicit NodeNotFound(const std::string& message) : std::runtime_error(message) {}
-};
+// Exception Classes Implementation
+NodeNotFound::NodeNotFound(const std::string& message) : std::runtime_error(message) {}
 
-class NoPath : public std::runtime_error {
-public:
-    explicit NoPath(const std::string& message) : std::runtime_error(message) {}
-};
+NoPath::NoPath(const std::string& message) : std::runtime_error(message) {}
 
-class HeuristicFunction {
-public:
-    virtual double call(const std::string& u, const NodeData& u_data,
-                        const std::string& v, const NodeData& v_data) = 0;
-};
+// DummyHeuristic Implementation
+double DummyHeuristic::call(const std::string& u, const NodeData& u_data,
+                            const std::string& v, const NodeData& v_data) {
+    return 0.0;
+}
 
-class DummyHeuristic : public HeuristicFunction {
-public:
-    double call(const std::string& u, const NodeData& u_data,
-                const std::string& v, const NodeData& v_data) override {
-        return 0.0;
-    }
-};
+// DummyWeightFunction Implementation
+double DummyWeightFunction::call(MultiDiGraph& g, const std::string& u, const std::string& v,
+                                 const std::string& key, const std::string& key_previous, const std::string& v_previous) {
+    return 1.0;
+}
 
-class WeightFunction {
-public:
-    virtual double call(MultiDiGraph& g, const std::string& u, const std::string& v,
-                        const std::string& key, const std::string& key_previous, const std::string& v_previous) = 0;
-};
+// GetWeightFunction Implementation
+GetWeightFunction::GetWeightFunction(const std::string& weight) : weight(weight) {}
 
-class DummyWeightFunction : public WeightFunction {
-public:
-    double call(MultiDiGraph& g, const std::string& u, const std::string& v,
-                const std::string& key, const std::string& key_previous, const std::string& v_previous) override {
-        return 1.0;
-    }
-};
+double GetWeightFunction::call(MultiDiGraph& g, const std::string& u, const std::string& v,
+                               const std::string& key, const std::string& key_previous, const std::string& v_previous) {
+    EdgeData edge_data = g.adj(u)[v][key];
+    return edge_data[weight];
+}
 
-class GetWeightFunction : public WeightFunction {
-    std::string weight;
-public:
-    explicit GetWeightFunction(std::string  weight) : weight(std::move(weight)) {}
-
-    double call(MultiDiGraph& g, const std::string& u, const std::string& v,
-                const std::string& key, const std::string& key_previous, const std::string& v_previous) override {
-        EdgeData edge_data = g.adj(u)[v][key];
-        return edge_data[weight];
-    }
-};
-
-
-struct QueueItem {
-    double priority;
-    int counter;
-    std::string node;
-    double dist;
-    std::string parent;
-    std::string key;
-
-        // Constructor
-    QueueItem(double _priority, int _counter, std::string  _node, double _dist,
-              std::string  _parent, std::string  _key)
+// QueueItem Implementation
+QueueItem::QueueItem(double _priority, int _counter, std::string  _node, double _dist,
+                     std::string  _parent, std::string  _key)
         : priority(_priority), counter(_counter), node(std::move(_node)), dist(_dist),
           parent(std::move(_parent)), key(std::move(_key)) {}
 
-    bool operator<(const QueueItem& other) const {
-        return priority > other.priority;
-    }
-};
+bool QueueItem::operator<(const QueueItem& other) const {
+    return priority > other.priority;
+}
 
 
 std::vector<std::tuple<std::string, std::string, std::string>>
 astar_path(MultiDiGraph& G, const std::string& source, const std::string& target,
-           HeuristicFunction* heuristic = nullptr, WeightFunction* weight = nullptr) {
+           HeuristicFunction* heuristic, WeightFunction* weight) {
 
     std::unordered_map<std::string, std::pair<double, double>> enqueued;
     std::unordered_map<std::string, std::pair<std::string, std::string>> explored;
@@ -98,6 +65,7 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
     queue.push(QueueItem(0.0, counter, source, 0.0, std::string(""), std::string("")));
 
     while (!queue.empty()) {
+        std::cout << queue.size() << std::endl;
         QueueItem topItem = queue.top();
         queue.pop();
         std::string curnode = topItem.node;
@@ -106,11 +74,13 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
         std::string key = topItem.key;
         if (curnode == target) {
             std::vector<std::tuple<std::string, std::string, std::string>> path;
+            path.emplace_back(parent, curnode, key);
             std::string node = parent;
             while (!node.empty()) {
-                path.emplace_back(node, curnode, key);
+                parent = node;
                 node = explored[node].first;
                 key = explored[node].second;
+                path.emplace_back(node, parent, key);
             }
             std::reverse(path.begin(), path.end());
             return path;
