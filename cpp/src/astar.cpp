@@ -66,7 +66,7 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
 
     while (!queue.empty()) {
         std::cout << queue.size() << std::endl;
-        QueueItem topItem = queue.top();
+        const QueueItem& topItem = queue.top();
         queue.pop();
         std::string curnode = topItem.node;
         double dist = topItem.dist;
@@ -77,6 +77,7 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
             path.emplace_back(parent, curnode, key);
             std::string node = parent;
             while (!node.empty()) {
+                std::cout << "Node: " << node << std::endl;
                 parent = node;
                 node = explored[node].first;
                 key = explored[node].second;
@@ -86,28 +87,27 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
             return path;
         }
 
-        if (explored.find(curnode) != explored.end() && explored[curnode] != empty_node) {
-            if (enqueued[curnode].first < dist) {
-                continue;
-            }
+        auto [it, inserted] = explored.insert_or_assign(curnode, std::make_pair(parent, key));
+        if (!inserted && it->second != empty_node && enqueued[curnode].first < dist) {
+            continue;
         }
 
         explored[curnode] = {parent, key};
         std::string key_previous = key;
 
-        auto adj = G.adj(curnode);
-        for (auto& [neighbor, w] : adj) {
-            for (const auto& [key, data] : w) {
-                double ncost = dist + weight_func->call(G, curnode, neighbor, key, key_previous, parent);
-                if (enqueued.find(neighbor) != enqueued.end() && enqueued[neighbor].first <= ncost) {
+        for (const auto& [neighbor, w] : G.adj(curnode)) {
+            for (const auto& [edge_key, data] : w) {
+                double ncost = dist + weight_func->call(G, curnode, neighbor, edge_key, key_previous, parent);
+                auto enqueuedIter = enqueued.find(neighbor);
+                if (enqueuedIter != enqueued.end() && enqueuedIter->second.first <= ncost) {
                     continue;
                 } else {
-                    NodeData neighbor_node_data = G.get_node_data(neighbor);
-                    NodeData target_node_data = G.get_node_data(target);
+                    const NodeData& neighbor_node_data = G.get_node_data(neighbor);
+                    const NodeData& target_node_data = G.get_node_data(target);
                     double h = heuristic_func->call(neighbor, neighbor_node_data, target, target_node_data);
                     enqueued[neighbor] = {ncost, h};
                     counter++;
-                    queue.push(QueueItem(ncost + h, counter, neighbor, ncost, curnode, key));
+                    queue.push(QueueItem(ncost + h, counter, neighbor, ncost, curnode, edge_key));
                 }
             }
         }
