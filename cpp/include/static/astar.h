@@ -66,6 +66,7 @@ struct QueueItem {
               std::string  _parent, std::string  _key);
 
     bool operator<(const QueueItem& other) const;
+    bool operator>(const QueueItem& other) const;
 };
 
 // A* Algorithm Function Declaration

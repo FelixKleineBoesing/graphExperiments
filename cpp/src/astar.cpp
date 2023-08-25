@@ -41,6 +41,10 @@ QueueItem::QueueItem(double _priority, int _counter, std::string  _node, double 
           parent(std::move(_parent)), key(std::move(_key)) {}
 
 bool QueueItem::operator<(const QueueItem& other) const {
+    return priority < other.priority;
+}
+
+bool QueueItem::operator>(const QueueItem& other) const {
     return priority > other.priority;
 }
 
@@ -60,19 +64,21 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
     WeightFunction* weight_func = weight ? weight : new DummyWeightFunction();
     HeuristicFunction* heuristic_func = heuristic ? heuristic : new DummyHeuristic();
 
-    std::priority_queue<QueueItem> queue;
+    std::priority_queue<QueueItem, std::vector<QueueItem>, std::greater<>> queue;
     int counter = 0;
     queue.push(QueueItem(0.0, counter, source, 0.0, std::string(""), std::string("")));
 
     while (!queue.empty()) {
         std::cout << queue.size() << std::endl;
-        const QueueItem& topItem = queue.top();
+        const QueueItem topItem = queue.top();
         queue.pop();
         std::string curnode = topItem.node;
         double dist = topItem.dist;
         std::string parent = topItem.parent;
         std::string key = topItem.key;
         if (curnode == target) {
+            std::cout << explored["0"].first << std::endl;
+            // this returns 52484 which means, that the explored source entry gets overwriten
             std::vector<std::tuple<std::string, std::string, std::string>> path;
             path.emplace_back(parent, curnode, key);
             std::string node = parent;
@@ -87,11 +93,11 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
             return path;
         }
 
-        auto [it, inserted] = explored.insert_or_assign(curnode, std::make_pair(parent, key));
-        if (!inserted && it->second != empty_node && enqueued[curnode].first < dist) {
-            continue;
+        if (explored.find(curnode) != explored.end() && explored[curnode] != empty_node) {
+            if (enqueued[curnode].first < dist) {
+                continue;
+            }
         }
-
         explored[curnode] = {parent, key};
         std::string key_previous = key;
 
