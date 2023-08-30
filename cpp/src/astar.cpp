@@ -56,7 +56,8 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
     std::unordered_map<std::string, std::pair<double, double>> enqueued;
     std::unordered_map<std::string, std::pair<std::string, std::string>> explored;
     std::pair<std::string, std::string> empty_node("", "");
-
+    double qcost;
+    double h;
     if (!G.has_node(source) || !G.has_node(target)) {
         throw NodeNotFound("Either source " + source + " or target " + target + " is not in G");
     }
@@ -92,8 +93,11 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
             std::reverse(path.begin(), path.end());
             return path;
         }
-
-        if (explored.find(curnode) != explored.end() && explored[curnode] != empty_node) {
+        auto exploredIter = explored.find(curnode);
+        if (exploredIter != explored.end()) {
+            if (exploredIter -> second == empty_node) {
+                continue;
+            }
             if (enqueued[curnode].first < dist) {
                 continue;
             }
@@ -105,19 +109,22 @@ astar_path(MultiDiGraph& G, const std::string& source, const std::string& target
             for (const auto& [edge_key, data] : w) {
                 double ncost = dist + weight_func->call(G, curnode, neighbor, edge_key, key_previous, parent);
                 auto enqueuedIter = enqueued.find(neighbor);
-                if (enqueuedIter != enqueued.end() && enqueuedIter->second.first <= ncost) {
-                    continue;
+                if (enqueuedIter != enqueued.end()) {
+                    h = enqueuedIter->second.second;
+                    if (enqueuedIter->second.first <= ncost) {
+                        continue;
+                    }
                 } else {
-                    const NodeData& neighbor_node_data = G.get_node_data(neighbor);
-                    const NodeData& target_node_data = G.get_node_data(target);
-                    double h = heuristic_func->call(neighbor, neighbor_node_data, target, target_node_data);
-                    enqueued[neighbor] = {ncost, h};
-                    counter++;
-                    queue.push(QueueItem(ncost + h, counter, neighbor, ncost, curnode, edge_key));
+                    const NodeData &neighbor_node_data = G.get_node_data(neighbor);
+                    const NodeData &target_node_data = G.get_node_data(target);
+                    h = heuristic_func->call(neighbor, neighbor_node_data, target, target_node_data);
+                }
+                enqueued[neighbor] = {ncost, h};
+                counter++;
+                queue.push(QueueItem(ncost + h, counter, neighbor, ncost, curnode, edge_key));
                 }
             }
         }
-    }
-
     throw NoPath("No path found between " + source + " and " + target);
 }
+

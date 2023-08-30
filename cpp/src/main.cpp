@@ -24,6 +24,10 @@ int main() {
 
     std::cout << "Shortest path found" << std::endl;
     std::cout << "Path length: " << shortest_path.size() << std::endl;
+    std::cout << "Path: " << std::endl;
+    for (auto& [u, v, key] : shortest_path) {
+        std::cout << u << " " << v << " " << key << std::endl;
+    }
 
     return 0;
 }
